@@ -13,8 +13,29 @@
 
     <string name="slide_others">Inne</string>
     <string name="slide_change">Zmień pojazd</string>
+    <string name="slide_about_me">O mnie</string>
     <string name="slide_policy">Polityka prywatności</string>
 
+    <string-array name="slide_titles">
+        <item>Start</item>
+        <item>Statystyki</item>
+        <item>Historia</item>
+        <item>Import/Export</item>
+        <item>Ustawienia</item>
+        <item>Zmień pojazd</item>
+        <item>O mnie</item>
+        <item>Polityka prywatności</item>
+    </string-array>
+
     <string name="settings_custom">Personalizacja</string>
-    <string name="settings_tutorial">"Samouczek</string>
+    <string name="settings_tutorial">Samouczek</string>
+
+    <string name="fragment_home">Witaj</string>
+    <string name="fragment_stats">Twoje Statystyki</string>
+    <string name="fragment_history">Historia</string>
+    <string name="fragment_im_ex">Importuj lub Exportuj</string>
+    <string name="fragment_settings">Ustawienia i Samouczek</string>
+    <string name="fragment_change">Change</string>
+    <string name="fragment_about_me">O mnie</string>
+    <string name="fragment_policy">Polityka prywatności</string>
 </resources>

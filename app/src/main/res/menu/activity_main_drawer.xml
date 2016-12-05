@@ -31,6 +31,10 @@
                 android:icon="@drawable/change_48"
                 android:title="@string/slide_change" />
             <item
+                android:id="@+id/nav_about_me"
+                android:icon="@drawable/about_me_48"
+                android:title="@string/slide_about_me" />
+            <item
                 android:id="@+id/nav_policy"
                 android:icon="@drawable/policy_48"
                 android:title="@string/slide_policy" />
