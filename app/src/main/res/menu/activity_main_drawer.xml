@@ -3,33 +3,37 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_48"
+            android:title="@string/slide_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_stats"
+            android:icon="@drawable/stats_48"
+            android:title="@string/slide_stats" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_history"
+            android:icon="@drawable/history_48"
+            android:title="@string/slide_history" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_im_ex"
+            android:icon="@drawable/im_ex_48"
+            android:title="@string/slide_im_ex" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings_48"
+            android:title="@string/settings" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/slide_others">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_change"
+                android:icon="@drawable/change_48"
+                android:title="@string/slide_change" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_policy"
+                android:icon="@drawable/policy_48"
+                android:title="@string/slide_policy" />
         </menu>
     </item>
 

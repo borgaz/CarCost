@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">CarCost</string>
+    <string name="user_name">Jakub</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="slide_home">Start</string>
+    <string name="slide_stats">Statystyki</string>
+    <string name="slide_history">Historia</string>
+    <string name="slide_im_ex">Import/Export</string>
+    <string name="settings">Ustawienia</string>
+
+    <string name="slide_others">Inne</string>
+    <string name="slide_change">Zmień pojazd</string>
+    <string name="slide_policy">Polityka prywatności</string>
+
+    <string name="settings_custom">Personalizacja</string>
+    <string name="settings_tutorial">"Samouczek</string>
 </resources>
