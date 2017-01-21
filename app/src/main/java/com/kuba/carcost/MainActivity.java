@@ -31,6 +31,7 @@ import com.kuba.carcost.fragment.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    DatabaseHelper myDb;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
@@ -64,11 +65,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /////////////////////////////////////
+        myDb = new DatabaseHelper(this);
+
+
+        ///////////////////////////////////
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fragmentTitles = getResources().getStringArray(R.array.slide_titles);
         mHandler = new Handler();
 
+        // Funkcje sterujące zachowaniem pływającego przycisku
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,11 +95,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -98,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
+                // Instrukcje warunkowe
                 if (id == R.id.nav_home) {
                     navCurrentItem = 0;
                     _CURRENT = _HOME;
@@ -123,12 +135,13 @@ public class MainActivity extends AppCompatActivity {
                     navCurrentItem = 7;
                     _CURRENT = _POLICY;
                 }
-                loadFragment();
                 return true;
             }
         });
+        loadFragment();
     }
 
+    // Zachowanie
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -165,7 +178,11 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            navCurrentItem = 4;
+            _CURRENT = _SETTINGS;
             return true;
+        } else if(id == R.id.action_tutorial) {
+
         }
 
         return super.onOptionsItemSelected(item);

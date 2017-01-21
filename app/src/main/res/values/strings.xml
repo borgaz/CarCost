@@ -10,6 +10,7 @@
     <string name="slide_history">Historia</string>
     <string name="slide_im_ex">Import/Export</string>
     <string name="settings">Ustawienia</string>
+    <string name="tutorial">Samouczek</string>
 
     <string name="slide_others">Inne</string>
     <string name="slide_change">Zmień pojazd</string>
@@ -30,7 +31,12 @@
     <string name="settings_custom">Personalizacja</string>
     <string name="settings_tutorial">Samouczek</string>
 
-    <string name="fragment_home">Witaj</string>
+    <string name="fragment_home_all">Całkowity koszt za kilometr: </string>
+    <string name="fragment_home_all_num">2.57</string>
+    <string name="fragment_home_last30">Koszt za kilometr (30 dni): </string>
+    <string name="fragment_home_last30_num">2,71</string>
+    <string name="fragment_home_fuel_label">Paliwo</string>
+
     <string name="fragment_stats">Twoje Statystyki</string>
     <string name="fragment_history">Historia</string>
     <string name="fragment_im_ex">Importuj lub Exportuj</string>
