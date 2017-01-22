@@ -1,5 +1,6 @@
 package com.kuba.carcost;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, IntroActivity.class);
+        startActivity(intent);
 
         /////////////////////////////////////
         myDb = new DatabaseHelper(this);
