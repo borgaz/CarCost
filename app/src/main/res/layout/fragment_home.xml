@@ -18,10 +18,10 @@
             android:layout_margin="5dp" />
 
         <TextView
+            android:id="@+id/textView2"
             android:text="@string/fragment_home_all_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
             android:layout_alignBaseline="@+id/textView"
             android:layout_alignBottom="@+id/textView"
             android:layout_toRightOf="@+id/textView"
@@ -32,17 +32,17 @@
             android:layout_margin="5dp" />
 
         <TextView
+            android:id="@+id/textView4"
             android:text="@string/fragment_home_last30_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:textSize="18sp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="normal|bold"
             android:layout_alignBaseline="@+id/textView3"
             android:layout_alignBottom="@+id/textView3"
             android:layout_toRightOf="@+id/textView3"
             android:layout_toEndOf="@+id/textView3"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="normal|bold"
             android:layout_margin="5dp" />
 
         <TextView

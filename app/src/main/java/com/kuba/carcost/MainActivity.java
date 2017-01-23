@@ -67,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        myDb = new DatabaseHelper(this);
+
         Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
 
         /////////////////////////////////////
-        myDb = new DatabaseHelper(this);
 
 
         ///////////////////////////////////

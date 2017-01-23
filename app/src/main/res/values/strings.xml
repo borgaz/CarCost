@@ -5,13 +5,28 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="intro_hello">Witaj w CarCost!</string>
+    <string name="intro_user">Użytkownik</string>
+    <string name="intro_user_name">Podaj swoje imię:</string>
+    <string name="intro_user_distance">Wybierz jednostkę odległości:</string>
+    <string name="intro_user_km">Kliometry</string>
+    <string name="intro_user_m">Mile</string>
+    <string name="intro_user_volume">Wybierz jednostkę pojemności:</string>
+    <string name="intro_user_l">Litry</string>
+    <string name="intro_user_g">Galony</string>
+    <string name="intro_perm">Uprawnienia</string>
+    <string name="intro_perm_storage">
+        Aplikacja wymaga do poprawnego funkcjonowania importu i eksportu
+        uprawnień związanych ze pamięcią.
+    </string>
+
+
     <string name="slide_home">Start</string>
     <string name="slide_stats">Statystyki</string>
     <string name="slide_history">Historia</string>
     <string name="slide_im_ex">Import/Export</string>
     <string name="settings">Ustawienia</string>
     <string name="tutorial">Samouczek</string>
-
     <string name="slide_others">Inne</string>
     <string name="slide_change">Zmień pojazd</string>
     <string name="slide_about_me">O mnie</string>

@@ -7,9 +7,10 @@
 
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/intro_hello"
+        android:layout_height="wrap_content"
+        android:text="@string/intro_perm"
         android:textSize="42sp"
         android:textStyle="bold"
         android:textAlignment="center"
@@ -18,5 +19,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:text="@string/intro_perm_storage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
