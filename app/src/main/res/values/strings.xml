@@ -59,4 +59,9 @@
     <string name="fragment_change">Change</string>
     <string name="fragment_about_me">O mnie</string>
     <string name="fragment_policy">Polityka prywatności</string>
+
+    <string name="next">Dalej</string>
+    <string name="back">Wstecz</string>
+    <string name="end">Zakończ</string>
+    <string name="pojazd">Pojazd</string>
 </resources>

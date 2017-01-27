@@ -11,9 +11,9 @@ import com.kuba.carcost.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChangeFragment extends Fragment {
+public class ChangeVehicleFragment extends Fragment {
 
-    public ChangeFragment() {
+    public ChangeVehicleFragment() {
         // Required empty public constructor
     }
 

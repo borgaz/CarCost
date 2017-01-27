@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorIntro"
     android:orientation="vertical">
 
 
@@ -25,6 +25,8 @@
         android:text="@string/intro_perm_storage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:textSize="24sp"
         android:layout_marginTop="17dp"
         android:layout_below="@+id/textView6"
