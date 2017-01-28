@@ -91,8 +91,12 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        // zmiana fragmentów
+        //////////////////////////////////////////////////////////////
+
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        // zmiana fragmentów
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -131,6 +135,27 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         openFragment();
     }
 
+    // Do dodania nazwa aktywnego pojazdu
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        setUserName();
+    }
+
+    private void setUserName() {
+        try {
+            Cursor res = myDb.getUser();
+            while (res.moveToNext()) {
+                name = res.getString(1);
+                TextView textView = (TextView) findViewById(R.id.userNameTextView);
+                textView.setText(name);
+            }
+        } catch (Exception e) {
+            //Toast.makeText(this, e.toString() + name, Toast.LENGTH_LONG).show();
+        }
+    }
+
     // Floating action button
     private void enableFloatingButton() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -139,13 +164,13 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
             public void onClick(View view) {
 //                Snackbar.make(view, "Kliknięcie plusa", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                try {
+//                try {
                     navCurrentItem = 8;
                     _CURRENT = _ADDFUEL;
                     openFragment();
-                } catch (Exception e) {
-                    Toast.makeText(view.getContext(), e.toString(), Toast.LENGTH_LONG).show();
-                }
+//                } catch (Exception e) {
+//                    Toast.makeText(view.getContext(), e.toString(), Toast.LENGTH_LONG).show();
+//                }
             }
         });
         fab.setOnLongClickListener(new View.OnLongClickListener() {
@@ -301,15 +326,6 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     public void openFragment() {
 
         setToolbarTitle();
-        try {
-            Cursor res = myDb.getUser();
-            while(res.moveToNext()) {
-                name = res.getString(1);
-                ((TextView) findViewById(R.id.userNameTextView)).setText(name);
-            }
-        } catch (Exception e) {
-            Toast.makeText(MainActivity.this, e.toString() + name, Toast.LENGTH_LONG).show();
-        }
 
         // check if user choose the same fragment
         if(getSupportFragmentManager().findFragmentByTag(_CURRENT) != null) {
