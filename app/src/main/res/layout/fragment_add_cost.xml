@@ -5,4 +5,131 @@
     tools:context="com.kuba.carcost.fragment.AddCostFragment">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Przebieg:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="8"
+                android:id="@+id/mileageCAEditText"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/textView5"
+                android:layout_alignLeft="@+id/textView6"
+                android:layout_alignStart="@+id/textView6" />
+
+            <TextView
+                android:text="Data:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:textSize="16sp"
+                android:layout_below="@+id/mileageCAEditText"
+                android:layout_alignLeft="@+id/textView5"
+                android:layout_alignStart="@+id/textView5"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="8"
+                android:id="@+id/dateCAEditText"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/textView6"
+                android:layout_alignLeft="@+id/textView6"
+                android:layout_alignStart="@+id/textView6" />
+
+            <TextView
+                android:text="Zatankowana ilość:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/dateCAEditText"
+                android:layout_alignLeft="@+id/fuelUnitAmountCAEditText"
+                android:layout_alignStart="@+id/fuelUnitAmountCAEditText" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="8"
+                android:id="@+id/fuelUnitAmountCAEditText"
+                android:layout_below="@+id/textView7"
+                android:layout_alignLeft="@+id/dateCAEditText"
+                android:layout_alignStart="@+id/dateCAEditText"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:text="Cena za jednostkę:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:id="@+id/textView13"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/fuelUnitAmountCAEditText"
+                android:layout_alignLeft="@+id/fuelUnitAmountCAEditText"
+                android:layout_alignStart="@+id/fuelUnitAmountCAEditText" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="8"
+                android:layout_marginTop="8dp"
+                android:id="@+id/fuelUnitPriceCAEditText"
+                android:layout_below="@+id/textView13"
+                android:layout_alignLeft="@+id/fuelFullCACheckBox"
+                android:layout_alignStart="@+id/fuelFullCACheckBox" />
+
+            <CheckBox
+                android:text="Tankowanie do pełna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/fuelFullCACheckBox"
+                android:checked="true"
+                android:layout_below="@+id/fuelUnitPriceCAEditText"
+                android:layout_alignLeft="@+id/textView13"
+                android:layout_alignStart="@+id/textView13" />
+
+            <Button
+                android:text="Dodaj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:id="@+id/addFuelButton"
+                android:layout_below="@+id/fuelFullCACheckBox"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

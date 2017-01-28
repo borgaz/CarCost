@@ -32,7 +32,7 @@
     <string name="slide_about_me">O mnie</string>
     <string name="slide_policy">Polityka prywatności</string>
 
-    <string-array name="slide_titles">
+    <string-array name="fragment_titles">
         <item>Start</item>
         <item>Statystyki</item>
         <item>Historia</item>
@@ -41,6 +41,8 @@
         <item>Zmień pojazd</item>
         <item>O mnie</item>
         <item>Polityka prywatności</item>
+        <item>Dodaj tankowanie</item>
+        <item>Dodaj koszt</item>
     </string-array>
 
     <string name="settings_custom">Personalizacja</string>

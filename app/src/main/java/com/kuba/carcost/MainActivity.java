@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fragmentTitles = getResources().getStringArray(R.array.slide_titles);
+        fragmentTitles = getResources().getStringArray(R.array.fragment_titles);
         mHandler = new Handler();
 
         enableFloatingButton();
@@ -139,51 +139,8 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
         setUserName();
-    }
-
-    private void setUserName() {
-        try {
-            Cursor res = myDb.getUser();
-            while (res.moveToNext()) {
-                name = res.getString(1);
-                TextView textView = (TextView) findViewById(R.id.userNameTextView);
-                textView.setText(name);
-            }
-        } catch (Exception e) {
-            //Toast.makeText(this, e.toString() + name, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    // Floating action button
-    private void enableFloatingButton() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Kliknięcie plusa", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                try {
-                    navCurrentItem = 8;
-                    _CURRENT = _ADDFUEL;
-                    openFragment();
-//                } catch (Exception e) {
-//                    Toast.makeText(view.getContext(), e.toString(), Toast.LENGTH_LONG).show();
-//                }
-            }
-        });
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Snackbar.make(view, "Długie kliknięcie plusa", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                navCurrentItem = 9;
-                _CURRENT = _ADDCOST;
-                openFragment();
-                return true;
-            }
-        });
     }
 
     // run first intro
@@ -196,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
                     Intent i = new Intent(MainActivity.this, IntroActivity.class);
                     startActivity(i);
                 }
-
 //                //  Initialize SharedPreferences
 //                SharedPreferences getPrefs = PreferenceManager
 //                        .getDefaultSharedPreferences(getBaseContext());
@@ -228,6 +184,45 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         t.start();
     }
 
+    private void setUserName() {
+        try {
+            Cursor res = myDb.getUser();
+            while (res.moveToNext()) {
+                name = res.getString(1);
+                TextView textView = (TextView) findViewById(R.id.userNameTextView);
+                textView.setText(name);
+            }
+        } catch (Exception e) {
+            //Toast.makeText(this, e.toString() + name, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // Floating action button
+    private void enableFloatingButton() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Kliknięcie plusa", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                navCurrentItem = 8;
+                _CURRENT = _ADDFUEL;
+                openFragment();
+            }
+        });
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+//                Snackbar.make(view, "Długie kliknięcie plusa", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                navCurrentItem = 9;
+                _CURRENT = _ADDCOST;
+                openFragment();
+                return true;
+            }
+        });
+    }
+
     // Zachowanie przycisku wstecz
     @Override
     public void onBackPressed() {
@@ -248,13 +243,6 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -272,6 +260,13 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     // show or hide the fab
