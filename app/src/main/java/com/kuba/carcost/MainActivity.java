@@ -1,11 +1,9 @@
 package com.kuba.carcost;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -59,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     private String name;
 
     // index to identify current nav menu item
-    public static int navCurrentItem = 0;
+    private static int navCurrentItem = 0;
+    private static int currentVehicle;
 
     // fragment titles
     private String[] fragmentTitles;
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
 
         //////////////////////////////////////////////////////////////
 
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         // zmiana fragmentów
@@ -139,8 +137,7 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     @Override
     protected void onResume() {
         super.onResume();
-        //Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
-        setUserName();
+        setCurrentVehicle();
     }
 
     // run first intro
@@ -184,16 +181,14 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         t.start();
     }
 
-    private void setUserName() {
+    private void setCurrentVehicle() {
         try {
             Cursor res = myDb.getUser();
             while (res.moveToNext()) {
-                name = res.getString(1);
-                TextView textView = (TextView) findViewById(R.id.userNameTextView);
-                textView.setText(name);
+                currentVehicle = res.getInt(5);
             }
         } catch (Exception e) {
-            //Toast.makeText(this, e.toString() + name, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
         }
     }
 

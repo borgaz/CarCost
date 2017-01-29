@@ -65,5 +65,11 @@
     <string name="next">Dalej</string>
     <string name="back">Wstecz</string>
     <string name="end">Zakończ</string>
-    <string name="pojazd">Pojazd</string>
+    <string name="car">Pojazd</string>
+    <string name="add_cost_add">Dodaj</string>
+    <string name="add_cost_check_box">Tankowanie do pełna</string>
+    <string name="add_cost_prize_unit">Cena za jednostkę:</string>
+    <string name="add_cost_fuel_unit_amount">Zatankowana ilość:</string>
+    <string name="add_cost_date">Data:</string>
+    <string name="add_cost_mileage">Przebieg:</string>
 </resources>

@@ -70,9 +70,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "id integer NOT NULL CONSTRAINT vehicle_pk PRIMARY KEY AUTOINCREMENT," +
                     "user_id integer NOT NULL," +
                     "name varchar(50) NOT NULL," +
-                    "fuel_type integer NOT NULL," +
-                    "tank_volume_1 integer NOT NULL," +
-                    "tank_volume_2 integer NOT NULL," +
+                    "fuel_type_1 integer NOT NULL," +
+                    "tank_volume_1 double NOT NULL," +
+                    "fuel_type_2 integer NOT NULL," +
+                    "tank_volume_2 double NOT NULL," +
                     "CONSTRAINT vehicle_user FOREIGN KEY (user_id)" +
                     "REFERENCES user (id)" +
                     ");");
@@ -123,8 +124,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean insertVehicleData(int user_id, String name, int fuel_type_1, int tank_volume_1,
-                                     int fuel_type_2, int tank_volume_2) {
+    public boolean insertVehicleData(int user_id, String name, int fuel_type_1, double tank_volume_1,
+                                     int fuel_type_2, double tank_volume_2) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(VEHICLE_COL_2, user_id);

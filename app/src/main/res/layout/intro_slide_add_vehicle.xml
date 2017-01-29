@@ -6,185 +6,194 @@
     android:orientation="vertical"
     android:isScrollContainer="true">
 
-
-    <TextView
-        android:id="@+id/textView10"
-        android:text="@string/pojazd"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center"  />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:id="@+id/textView12" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:layout_below="@+id/textView12"
-        android:layout_alignLeft="@+id/textView12"
-        android:layout_alignStart="@+id/textView12"
-        android:layout_marginTop="8dp"
-        android:id="@+id/vehicleEditText" />
+            <TextView
+                android:id="@+id/textView10"
+                android:text="@string/car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:fontFamily="sans-serif"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"  />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/vehicleEditText"
-        android:layout_alignLeft="@+id/vehicleEditText"
-        android:layout_alignStart="@+id/vehicleEditText"
-        android:layout_marginTop="8dp"
-        android:id="@+id/textView15" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/textView15"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15"
-        android:id="@+id/radioFuelType1">
-
-        <RadioButton
-            android:text="Benzyna/Ropa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioRegular1"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:text="LPG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioLPG1"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:text="Prąd elektryczny"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioElectric1"
-            android:layout_weight="1" />
-    </RadioGroup>
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioFuelType1"
-        android:layout_alignLeft="@+id/radioFuelType1"
-        android:layout_alignStart="@+id/radioFuelType1"
-        android:layout_marginTop="8dp"
-        android:id="@+id/textView17" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_below="@+id/textView17"
-        android:layout_alignLeft="@+id/textView17"
-        android:layout_alignStart="@+id/textView17"
-        android:layout_marginTop="8dp"
-        android:id="@+id/tankVolume1EditText" />
-
-    <CheckBox
-        android:text="Drugi zbiornik paliwa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tankVolume1EditText"
-        android:layout_alignLeft="@+id/tankVolume1EditText"
-        android:layout_alignStart="@+id/tankVolume1EditText"
-        android:layout_marginTop="8dp"
-        android:id="@+id/isSecondTankcheckBox" />
-
-    <RelativeLayout
-        android:id="@+id/secondTankLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/isSecondTankcheckBox"
-        android:layout_alignLeft="@+id/isSecondTankcheckBox"
-        android:layout_alignStart="@+id/isSecondTankcheckBox"
-        android:layout_marginTop="8dp"
-        android:visibility="gone">
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_below="@+id/textView16"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/radioFuelType2">
-
-            <RadioButton
-                android:text="Benzyna/Ropa"
+            <TextView
+                android:text="Podaj nazwę pojazdu:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioRegular2"
-                android:layout_weight="1" />
+                android:layout_below="@+id/textView10"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/textView12" />
 
-            <RadioButton
-                android:text="LPG"
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioLPG2"
-                android:layout_weight="1" />
+                android:inputType="text"
+                android:ems="10"
+                android:layout_below="@+id/textView12"
+                android:layout_alignLeft="@+id/textView12"
+                android:layout_alignStart="@+id/textView12"
+                android:layout_marginTop="8dp"
+                android:id="@+id/vehicleEditText" />
 
-            <RadioButton
-                android:text="Prąd elektryczny"
+            <TextView
+                android:text="Wybierz rodzaj paliwa:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioElectric2"
-                android:layout_weight="1" />
-        </RadioGroup>
+                android:layout_below="@+id/vehicleEditText"
+                android:layout_alignLeft="@+id/vehicleEditText"
+                android:layout_alignStart="@+id/vehicleEditText"
+                android:layout_marginTop="8dp"
+                android:id="@+id/textView15" />
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView16"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/textView15"
+                android:layout_alignLeft="@+id/textView15"
+                android:layout_alignStart="@+id/textView15"
+                android:id="@+id/radioFuelType1">
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:id="@+id/textView18"
-            android:layout_below="@+id/radioFuelType2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+                <RadioButton
+                    android:text="Benzyna/Ropa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioRegular1"
+                    android:layout_weight="1"
+                    android:checked="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:ems="10"
-            android:layout_below="@+id/textView18"
-            android:layout_marginTop="8dp"
-            android:id="@+id/tankVolume2EditText" />
-    </RelativeLayout>
+                <RadioButton
+                    android:text="LPG"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioLPG1"
+                    android:layout_weight="1" />
 
+                <RadioButton
+                    android:text="Prąd elektryczny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioElectric1"
+                    android:layout_weight="1" />
+            </RadioGroup>
+
+            <TextView
+                android:text="Podaj pojemność baku:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioFuelType1"
+                android:layout_alignLeft="@+id/radioFuelType1"
+                android:layout_alignStart="@+id/radioFuelType1"
+                android:layout_marginTop="8dp"
+                android:id="@+id/textView17" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:layout_below="@+id/textView17"
+                android:layout_alignLeft="@+id/textView17"
+                android:layout_alignStart="@+id/textView17"
+                android:layout_marginTop="8dp"
+                android:id="@+id/tankVolume1EditText" />
+
+            <CheckBox
+                android:text="Drugi zbiornik paliwa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tankVolume1EditText"
+                android:layout_alignLeft="@+id/tankVolume1EditText"
+                android:layout_alignStart="@+id/tankVolume1EditText"
+                android:layout_marginTop="8dp"
+                android:id="@+id/isSecondTankCheckBox" />
+
+            <RelativeLayout
+                android:id="@+id/secondTankLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/isSecondTankCheckBox"
+                android:layout_alignLeft="@+id/isSecondTankCheckBox"
+                android:layout_alignStart="@+id/isSecondTankCheckBox"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/textView16"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/radioFuelType2">
+
+                    <RadioButton
+                        android:text="Benzyna/Ropa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radioRegular2"
+                        android:layout_weight="1"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:text="LPG"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radioLPG2"
+                        android:layout_weight="1" />
+
+                    <RadioButton
+                        android:text="Prąd elektryczny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radioElectric2"
+                        android:layout_weight="1" />
+                </RadioGroup>
+
+                <TextView
+                    android:text="Wybierz rodzaj paliwa:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView16"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:text="Podaj pojemność baku:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/textView18"
+                    android:layout_below="@+id/radioFuelType2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:layout_below="@+id/textView18"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/tankVolume2EditText" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
