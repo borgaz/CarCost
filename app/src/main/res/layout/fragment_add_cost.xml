@@ -16,10 +16,10 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/textView5"
                 android:text="@string/add_cost_mileage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5"
                 android:textSize="16sp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -29,102 +29,191 @@
                 android:layout_marginTop="8dp" />
 
             <EditText
+                android:id="@+id/mileageCAEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="date"
+                android:inputType="number"
                 android:ems="8"
-                android:id="@+id/mileageCAEditText"
                 android:layout_marginTop="8dp"
                 android:layout_below="@+id/textView5"
-                android:layout_alignLeft="@+id/textView6"
-                android:layout_alignStart="@+id/textView6" />
+                android:layout_alignLeft="@+id/dateTextView"
+                android:layout_alignStart="@+id/dateTextView"
+                android:maxLength="9" />
 
             <TextView
+                android:id="@+id/dateTextView"
                 android:text="@string/add_cost_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
                 android:textSize="16sp"
                 android:layout_below="@+id/mileageCAEditText"
                 android:layout_alignLeft="@+id/textView5"
                 android:layout_alignStart="@+id/textView5"
                 android:layout_marginTop="8dp" />
 
-            <EditText
+            <TextView
+                android:id="@+id/dateCATextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="8"
-                android:id="@+id/dateCAEditText"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/textView6"
-                android:layout_alignLeft="@+id/textView6"
-                android:layout_alignStart="@+id/textView6" />
+                android:layout_below="@+id/dateTextView"
+                android:layout_alignLeft="@+id/dateTextView"
+                android:layout_alignStart="@+id/dateTextView"
+                android:clickable="true"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_corner"
+                android:padding="5dp"
+                android:textStyle="normal|bold" />
 
             <TextView
-                android:text="@string/add_cost_fuel_unit_amount"
+                android:id="@+id/textView11"
+                android:text="@string/add_cost_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/dateCAEditText"
-                android:layout_alignLeft="@+id/fuelUnitAmountCAEditText"
-                android:layout_alignStart="@+id/fuelUnitAmountCAEditText" />
+                android:layout_below="@+id/dateCATextView"
+                android:layout_alignLeft="@+id/dateTextView"
+                android:layout_alignStart="@+id/dateTextView" />
 
             <EditText
+                android:id="@+id/expenseCAEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="8"
-                android:id="@+id/fuelUnitAmountCAEditText"
-                android:layout_below="@+id/textView7"
-                android:layout_alignLeft="@+id/dateCAEditText"
-                android:layout_alignStart="@+id/dateCAEditText"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:layout_below="@+id/textView11"
+                android:layout_alignLeft="@+id/dateTextView"
+                android:layout_alignStart="@+id/dateTextView"
+                android:layout_marginTop="8dp"
+                android:maxLength="15" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:text="@string/add_cost_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expenseCAEditText"
+                android:layout_alignLeft="@+id/dateTextView"
+                android:layout_alignStart="@+id/dateTextView"
+                android:textSize="16sp"
                 android:layout_marginTop="8dp"/>
 
-            <TextView
-                android:text="@string/add_cost_prize_unit"
+            <Spinner
+                android:id="@+id/categoriesSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:id="@+id/textView13"
+                android:layout_below="@+id/textView14"
+                android:layout_alignLeft="@+id/dateTextView"
+                android:layout_alignStart="@+id/dateTextView"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/fuelUnitAmountCAEditText"
-                android:layout_alignLeft="@+id/fuelUnitAmountCAEditText"
-                android:layout_alignStart="@+id/fuelUnitAmountCAEditText" />
+                android:textSize="20sp"
+                android:entries="@array/categories"/>
+
+            <TextView
+                android:id="@+id/textView19"
+                android:text="@string/add_cost_add_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categoriesSpinner"
+                android:layout_alignLeft="@+id/categoriesSpinner"
+                android:layout_alignStart="@+id/categoriesSpinner"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/descriptionEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="8"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:layout_below="@+id/textView19"
+                android:layout_alignLeft="@+id/categoriesSpinner"
+                android:layout_alignStart="@+id/categoriesSpinner"
                 android:layout_marginTop="8dp"
-                android:id="@+id/fuelUnitPriceCAEditText"
-                android:layout_below="@+id/textView13"
-                android:layout_alignLeft="@+id/fuelFullCACheckBox"
-                android:layout_alignStart="@+id/fuelFullCACheckBox" />
+                android:maxLength="255" />
 
-            <CheckBox
-                android:text="@string/add_cost_check_box"
+            <TextView
+                android:id="@+id/textView20"
+                android:text="@string/add_cost_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_below="@+id/descriptionEditText"
+                android:layout_alignLeft="@+id/descriptionEditText"
+                android:layout_alignStart="@+id/descriptionEditText"
                 android:layout_marginTop="8dp"
-                android:id="@+id/fuelFullCACheckBox"
-                android:checked="true"
-                android:layout_below="@+id/fuelUnitPriceCAEditText"
-                android:layout_alignLeft="@+id/textView13"
-                android:layout_alignStart="@+id/textView13" />
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/placeEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:layout_below="@+id/textView20"
+                android:layout_alignLeft="@+id/descriptionEditText"
+                android:layout_alignStart="@+id/descriptionEditText"
+                android:layout_marginTop="8dp"
+                android:maxLength="255" />
+
+            <TextView
+                android:id="@+id/insurerTextView"
+                android:text="@string/add_cost_insurer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/placeEditText"
+                android:layout_alignLeft="@+id/descriptionEditText"
+                android:layout_alignStart="@+id/descriptionEditText"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/insurerEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:layout_below="@+id/insurerTextView"
+                android:layout_alignLeft="@+id/descriptionEditText"
+                android:layout_alignStart="@+id/descriptionEditText"
+                android:layout_marginTop="8dp"
+                android:maxLength="255"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/insuranceTextView"
+                android:text="@string/add_cost_insurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/insurerEditText"
+                android:layout_alignLeft="@+id/descriptionEditText"
+                android:layout_alignStart="@+id/descriptionEditText"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/insuranceSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/insuranceTextView"
+                android:layout_alignLeft="@+id/descriptionEditText"
+                android:layout_alignStart="@+id/descriptionEditText"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:entries="@array/insurance"
+                android:visibility="gone" />
 
             <Button
+                android:id="@+id/addCostButton"
                 android:text="@string/add_cost_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:id="@+id/addFuelButton"
-                android:layout_below="@+id/fuelFullCACheckBox"
+                android:layout_below="@+id/insuranceSpinner"
                 android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />

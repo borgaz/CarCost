@@ -13,9 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,8 +25,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.github.paolorotolo.appintro.PermissionObject;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -57,7 +53,7 @@ public class IntroActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 123;
     private boolean permissionIsGranted = false;
-    private int askForPermissionNumeber = 0;
+    private int askForPermissionNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +88,7 @@ public class IntroActivity extends AppCompatActivity {
 //                            if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
 //                                    != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(IntroActivity.this,
 //                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        askForPermissionNumeber++;
+                        askForPermissionNumber++;
                         ActivityCompat.requestPermissions(IntroActivity.this,
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                                 MY_PERMISSIONS_REQUEST_STORAGE);
@@ -103,7 +99,7 @@ public class IntroActivity extends AppCompatActivity {
                     } else {
                         permissionIsGranted = true;
                     }
-                    if(permissionIsGranted || askForPermissionNumeber > 1) {
+                    if(permissionIsGranted || askForPermissionNumber > 1) {
                         currentPage++;
                     }
 
@@ -175,8 +171,6 @@ public class IntroActivity extends AppCompatActivity {
         } else {
             volumeUnit = 1;
         }
-
-        myDb.insertUserData(userName, 0, distanceUnit, volumeUnit, 1);
     }
 
     private void saveVehicleData() {
@@ -240,7 +234,7 @@ public class IntroActivity extends AppCompatActivity {
                     if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         permissionIsGranted = true;
                     } else {
-                        askForPermissionNumeber++;
+                        askForPermissionNumber++;
                         ActivityCompat.requestPermissions(IntroActivity.this,
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                                 MY_PERMISSIONS_REQUEST_STORAGE);
@@ -260,7 +254,7 @@ public class IntroActivity extends AppCompatActivity {
                             if (isChecked) {
                                 secondTankLayout.setVisibility(View.VISIBLE);
                             } else {
-                                secondTankLayout.setVisibility(View.INVISIBLE);
+                                secondTankLayout.setVisibility(View.GONE);
                             }
                         }
                     });

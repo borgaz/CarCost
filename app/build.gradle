@@ -29,6 +29,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
-    compile 'com.github.paolorotolo:appintro:4.1.0'
     testCompile 'junit:junit:4.12'
 }

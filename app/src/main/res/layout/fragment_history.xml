@@ -1,13 +1,109 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.kuba.carcost.fragment.HistoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/fragment_history" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:text="@string/since_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignBaseline="@+id/startDateHistoryTextView"
+                android:layout_alignBottom="@+id/startDateHistoryTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/startDateHistoryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_corner"
+                android:padding="5dp"
+                android:textStyle="normal|bold"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView22"
+                android:layout_toEndOf="@+id/textView22"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:text="@string/to_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_alignBaseline="@+id/stopDateHistoryTextView"
+                android:layout_alignBottom="@+id/stopDateHistoryTextView"
+                android:layout_alignLeft="@+id/textView21"
+                android:layout_alignStart="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/stopDateHistoryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_corner"
+                android:padding="5dp"
+                android:textStyle="normal|bold"
+                android:layout_below="@+id/startDateHistoryTextView"
+                android:layout_alignLeft="@+id/startDateHistoryTextView"
+                android:layout_alignStart="@+id/startDateHistoryTextView"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/categoriesHistoryButton"
+                android:text="@string/categories_history_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/startDateHistoryTextView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/searchHistoryButton"
+                android:text="@string/search_history_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categoriesHistoryButton"
+                android:layout_alignRight="@+id/categoriesHistoryButton"
+                android:layout_alignEnd="@+id/categoriesHistoryButton" />
+
+            <View
+                android:id="@+id/viewHistory"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".5"
+                android:layout_below="@+id/searchHistoryButton"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorPrimary"/>
+
+            <ListView
+                android:id="@+id/historyListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/viewHistory"
+                android:layout_marginTop="2dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
