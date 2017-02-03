@@ -79,6 +79,7 @@ public class AddCostFragment extends Fragment {
         setDate(new GregorianCalendar());
         myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getUser();
+        myDb.close();
         while (res.moveToNext()) {
             currentVehicle = res.getInt(5);
         }
@@ -129,6 +130,7 @@ public class AddCostFragment extends Fragment {
                     } else if (expenseCAEditText.getText().toString() == "") {
                         expenseCAEditText.setError("Pole wymagane.");
                     } else {
+                        myDb = new DatabaseHelper(view.getContext());
                         if(myDb.insertCostData(currentVehicle, expense,
                                 dateCAEditText.getText().toString(), mileage, category+1, description,
                                 -1, -1, -1, -1, place, insurer, insurance+1, -1))
@@ -136,6 +138,7 @@ public class AddCostFragment extends Fragment {
                         else
                             Toast.makeText(getContext(), "Nie dodano kosztu.", Toast.LENGTH_SHORT).show();
 
+                        myDb.close();
                         mListener.openHomeFragment();
                     }
                 }

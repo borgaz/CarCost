@@ -115,22 +115,30 @@ public class IntroActivity extends AppCompatActivity {
                 // Obsługa ekranu dodawania pojazdu
                 } else if(currentPage == 3) {
                     saveUserData();
-                    saveVehicleData();
-                    if (userName.length() < 3) {
-                        userEditText.setError("Wymagane są minimum 3 znaki.");
-                        currentPage = 2;
-                        viewPager.setCurrentItem(currentPage);
-                    } else if (vehicleName.length() < 3) {
-                        vehicleEditText.setError("Wymagane są minimum 3 znaki.");
-                    } else  if (!(tankVolume1 > 0)) {
-                        tankVolume1EditText.setError("Pojemność musi być dodatnia.");
-                    } else  if (!(tankVolume2 > 0) && isSecondTankCheckBox.isChecked()) {
-                        tankVolume2EditText.setError("Pojemność musi być dodatnia.");
-                    } else {
-                        saveIntroDataToDB();
-                        currentPage++;
-                    }
 
+                    if (vehicleEditText.getText().toString().isEmpty()) {
+                        vehicleEditText.setError("Pole jest wymagane.");
+                    } else if (tankVolume1EditText.getText().toString().isEmpty()) {
+                        tankVolume1EditText.setError("Pole jest wymagane.");
+                    } else if (tankVolume2EditText.getText().toString().length() == 0 && isSecondTankCheckBox.isChecked()) {
+                        tankVolume2EditText.setError("Pole jest wymagane.");
+                    } else {
+                        saveVehicleData();
+                        if (userName.length() < 3) {
+                            userEditText.setError("Wymagane są minimum 3 znaki.");
+                            currentPage = 2;
+                            viewPager.setCurrentItem(currentPage);
+                        } else if (vehicleName.length() < 3) {
+                            vehicleEditText.setError("Wymagane są minimum 3 znaki.");
+                        } else if (tankVolume1 <= 0) {
+                            tankVolume1EditText.setError("Pojemność musi być dodatnia.");
+                        } else if (tankVolume2 <= 0 && isSecondTankCheckBox.isChecked()) {
+                            tankVolume2EditText.setError("Pojemność musi być dodatnia.");
+                        } else {
+                            saveIntroDataToDB();
+                            currentPage++;
+                        }
+                    }
                 } else {
                     currentPage++;
                 }

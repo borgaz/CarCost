@@ -139,8 +139,10 @@ public class HistoryFragment extends Fragment {
     }
 
     private void setHistoryList() {
+        myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getCostByCategoryAndDate(sinceDateHistoryTextView.getText().toString(),
                 toDateHistoryTextView.getText().toString(), categoryList);
+        myDb.close();
         costList = new ArrayList<>();
         if (res.getCount() != 0) {
             while (res.moveToNext()) {

@@ -231,6 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                   String insurer, int insurance, int tank_missed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COST_COL_1, id);
         contentValues.put(COST_COL_2, vehicle_id);
         contentValues.put(COST_COL_3, expense);
         contentValues.put(COST_COL_4, cost_date);
@@ -245,7 +246,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COST_COL_13, insurer);
         contentValues.put(COST_COL_14, insurance);
         contentValues.put(COST_COL_15, tank_missed);
-        return db.update(COST_TABLE, contentValues, "id = ?", new String[]{Integer.toString(id)}) != -1;
+        return db.update(COST_TABLE, contentValues, "id = " + id, null) != -1;
     }
 
     public boolean deleteCostById(int id) {
@@ -274,9 +275,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while (res.moveToNext()) {
                 sum = res.getDouble(0);
                 distance = res.getInt(2) - res.getInt(1);
-                sum /= distance;
-                sum *= 100;
-                return sum;
+                if(distance != 0) {
+                    sum /= distance;
+                    sum *= 100;
+                    return sum;
+                } else {
+                    return 0;
+                }
             }
         }
         return 0;
@@ -291,8 +296,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while (res.moveToNext()) {
                 sum = res.getDouble(0);
                 distance = res.getInt(2) - res.getInt(1);
-                sum /= distance;
-                return sum;
+                if(distance != 0) {
+                    sum /= distance;
+                    return sum;
+                } else {
+                    return 0;
+                }
             }
         }
         return 0;

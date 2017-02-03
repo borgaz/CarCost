@@ -36,14 +36,15 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         myDb = new DatabaseHelper(getActivity());
         double avgAllValue = myDb.getCostDataForAvgAll();
-        String string = new DecimalFormat("####.##zł").format(avgAllValue);
+        String string = new DecimalFormat("####.##zł/km").format(avgAllValue);
         ((TextView) view.findViewById(R.id.avgAllTextView)).setText(string);
         double avgFuelValue = myDb.getCostDataForAvgFuel();
         string = new DecimalFormat("####.##l/km").format(avgFuelValue);
         ((TextView) view.findViewById(R.id.avgFuelTextView)).setText(string);
         double avg30Value = myDb.getCostDataForAvg30();
-        string = new DecimalFormat("####.##zł").format(avg30Value);
+        string = new DecimalFormat("####.##zł/km").format(avg30Value);
         ((TextView) view.findViewById(R.id.avg30TextView)).setText(string);
+        myDb.close();
         return view;
     }
 
@@ -62,12 +63,13 @@ public class HomeFragment extends Fragment {
         barData = new BarData(data.getLabels(), barDataSet);
         barChart = (HorizontalBarChart) view.findViewById(R.id.homeChart);
         barChart.setData(barData);
-        barChart.setDescription(null);
+        barChart.setDescription("Koszty z minionego miesiąca");
         barChart.invalidate();
     }
 
     private void setUserName() {
         try {
+            myDb = new DatabaseHelper(getActivity());
             Cursor res = myDb.getUser();
             while (res.moveToNext()) {
                 String name = res.getString(1);
@@ -75,6 +77,8 @@ public class HomeFragment extends Fragment {
             }
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+        } finally {
+            myDb.close();
         }
     }
 }

@@ -161,7 +161,8 @@
                     android:id="@+id/radioCETank1"
                     android:text="@string/add_cost_1_tank"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/radioCETank2"

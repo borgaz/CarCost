@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDb = new DatabaseHelper(this);
-
         startFirstIntro();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -141,7 +139,9 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+                myDb = new DatabaseHelper(getBaseContext());
                 Cursor res = myDb.getUser();
+                myDb.close();
                 if(res.getCount() == 0){
                     Intent i = new Intent(MainActivity.this, IntroActivity.class);
                     startActivity(i);
@@ -155,7 +155,9 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
 
     private void setCurrentVehicle() {
         try {
+            myDb = new DatabaseHelper(this);
             Cursor res = myDb.getUser();
+            myDb.close();
             while (res.moveToNext()) {
                 currentVehicle = res.getInt(5);
             }
@@ -209,14 +211,14 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         super.onBackPressed();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
 //            navCurrentItem = 4;
 //            _CURRENT = _SETTINGS;
@@ -225,9 +227,9 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
 //        } else if(id == R.id.action_tutorial) {
 //            // TTTTUUUUUTTTTOOORRRIIAAALLLLLLL------------------------------------------
 //        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -31,7 +31,6 @@ public class ImExFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_im_ex, container, false);
-        myDb = new DatabaseHelper(view.getContext());
         importDbButton = (Button) view.findViewById(R.id.importDbButton);
         exportDBButton = (Button) view.findViewById(R.id.exportDbButton);
 
@@ -39,9 +38,12 @@ public class ImExFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
+                    myDb = new DatabaseHelper(view.getContext());
                     myDb.importDatabase(getContext());
                 } catch (Exception e) {
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                } finally {
+                    myDb.close();
                 }
             }
         });
@@ -50,9 +52,12 @@ public class ImExFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try{
-                myDb.exportDatabase(getContext());
+                    myDb = new DatabaseHelper(view.getContext());
+                    myDb.exportDatabase(getContext());
                 } catch (Exception e){
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                } finally {
+                    myDb.close();
                 }
             }
         });

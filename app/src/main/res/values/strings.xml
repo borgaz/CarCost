@@ -89,6 +89,7 @@
     <string name="cost_edit_button">Zapisz</string>
     <string name="category_select_title">Wybierz kategorie</string>
     <string name="cancel_button">Anuluj</string>
+    <string name="ok">OK</string>
 
     <string-array name="cost_categories">
         <item>Konserwacja i naprawy</item>

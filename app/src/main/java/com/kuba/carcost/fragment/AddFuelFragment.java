@@ -81,6 +81,8 @@ public class AddFuelFragment extends Fragment {
         while (res.moveToNext()) {
             hasTwoTanks = res.getInt(5);
         }
+        myDb.close();
+
         if(hasTwoTanks != -1) {
             tankNumberTextView.setVisibility(View.VISIBLE);
             radioTankNumber.setVisibility(View.VISIBLE);
@@ -111,7 +113,7 @@ public class AddFuelFragment extends Fragment {
         fuelUnitPriceFAEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if((expenseFAEditText.getText().toString().length() != 0) && (fuelUnitAmountFAEditText.getText().toString().length() != 0)) {
+                if(hasFocus && (expenseFAEditText.getText().toString().length() != 0) && (fuelUnitAmountFAEditText.getText().toString().length() != 0)) {
                     double price = Double.parseDouble(expenseFAEditText.getText().toString()) / Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
                     String string = new DecimalFormat("####.##").format(price).replace(',','.');
                     fuelUnitPriceFAEditText.setText(string);
@@ -154,13 +156,14 @@ public class AddFuelFragment extends Fragment {
                         expense = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString())*Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
                         String string = new DecimalFormat("####.##").format(expense);
                         expenseFAEditText.setText(string);
+                        myDb = new DatabaseHelper(view.getContext());
                         if(myDb.insertCostData(currentVehicle, expense,
                                 dateFAEditText.getText().toString(), mileage, 0, " ", fuelUnitAmount,
                                 fuelUnitPrice, fuelFull, fuelTankNum, " ", " ", -1, tankMissed))
                             Toast.makeText(getContext(), "Dodano koszt.", Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(getContext(), "Nie dodano kosztu.", Toast.LENGTH_SHORT).show();
-
+                        myDb.close();
                         mListener.openHomeFragment();
                     }
                 }

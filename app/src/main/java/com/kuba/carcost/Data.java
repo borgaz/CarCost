@@ -14,6 +14,7 @@ public class Data {
     public Data(Context context) {
         myDb = new DatabaseHelper(context);
         chartEntry = myDb.getCostDataForChart30();
+        myDb.close();
     }
 
     public ArrayList<BarEntry> getEntries() {
