@@ -108,7 +108,7 @@ public class EditCostFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        ((Button) view.findViewById(R.id.saveCEButton)).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.saveCEButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveCostData();
@@ -116,10 +116,11 @@ public class EditCostFragment extends Fragment {
             }
         });
 
-        ((Button) view.findViewById(R.id.deleteCEbutton)).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.deleteCEbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myDb.deleteCostById(costId);
+                mListener.backToHistoryFragment();
             }
         });
 

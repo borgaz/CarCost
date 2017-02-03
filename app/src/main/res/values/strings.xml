@@ -50,9 +50,8 @@
     <string name="settings_tutorial">Samouczek</string>
 
     <string name="fragment_home_all">Całkowity koszt za kilometr: </string>
-    <string name="fragment_home_all_num">2.57</string>
+    <string name="fragment_home_avg_fuel">Średnie spalanie: </string>
     <string name="fragment_home_last30">Koszt za kilometr (30 dni): </string>
-    <string name="fragment_home_last30_num">2,71</string>
     <string name="fragment_home_fuel_label">Paliwo</string>
 
     <string name="fragment_stats">Twoje Statystyki</string>
@@ -113,5 +112,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_cost_button">Usuń</string>
-    <string name="import_DB">Importuj</string>
+    <string name="export_db">Exportuj bazę danych do pliku</string>
+    <string name="export_db_button">Exportuj</string>
+    <string name="import_db">Importuj bazę danych z pliku</string>
+    <string name="import_db_button">Importuj</string>
+
 </resources>

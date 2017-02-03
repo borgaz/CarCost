@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.kuba.carcost.DatabaseHelper;
 import com.kuba.carcost.R;
 import com.kuba.carcost.interfaces.ChangeFragment;
 
+import java.text.DecimalFormat;
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 
@@ -83,6 +86,39 @@ public class AddFuelFragment extends Fragment {
             radioTankNumber.setVisibility(View.VISIBLE);
         }
 
+        expenseFAEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus && (fuelUnitPriceFAEditText.getText().toString().length() != 0) && (fuelUnitAmountFAEditText.getText().toString().length() != 0)) {
+                    double price = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString())*Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
+                    String string = new DecimalFormat("####.##").format(price).replace(',','.');
+                    expenseFAEditText.setText(string);
+                }
+            }
+        });
+
+        fuelUnitAmountFAEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus && (expenseFAEditText.getText().toString().length() != 0) && (fuelUnitPriceFAEditText.getText().toString().length() != 0)) {
+                    double price = Double.parseDouble(expenseFAEditText.getText().toString())/Double.parseDouble(fuelUnitPriceFAEditText.getText().toString());
+                    String string = new DecimalFormat("####.##").format(price).replace(',','.');
+                    fuelUnitAmountFAEditText.setText(string);
+                }
+            }
+        });
+
+        fuelUnitPriceFAEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if((expenseFAEditText.getText().toString().length() != 0) && (fuelUnitAmountFAEditText.getText().toString().length() != 0)) {
+                    double price = Double.parseDouble(expenseFAEditText.getText().toString()) / Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
+                    String string = new DecimalFormat("####.##").format(price).replace(',','.');
+                    fuelUnitPriceFAEditText.setText(string);
+                }
+            }
+        });
+
         dateFAEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,16 +137,23 @@ public class AddFuelFragment extends Fragment {
             addFuelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    saveCostData();
-                    if (mileage < 0) {
+                    if (mileageFAEditText.getText().toString().isEmpty()) {
+                        mileageFAEditText.setError("Przebieg nie może być pusty.");
+                    } else {
+                        saveCostData();
+                    }
+                    if (mileage <= 0) {
                         mileageFAEditText.setError("Przebieg musi być dodatni.");
+                    } else if (expense <= 0) {
+                        expenseFAEditText.setError("Podaj liczbę dodatnią.");
                     } else if (fuelUnitAmount <= 0) {
                         fuelUnitAmountFAEditText.setError("Podaj liczbę dodatnią.");
                     } else if (fuelUnitPrice <= 0) {
                         fuelUnitPriceFAEditText.setError("Podaj liczbę dodatnią.");
-                    } else if (expense <= 0) {
-                        expenseFAEditText.setError("Podaj liczbę dodatnią.");
                     } else {
+                        expense = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString())*Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
+                        String string = new DecimalFormat("####.##").format(expense);
+                        expenseFAEditText.setText(string);
                         if(myDb.insertCostData(currentVehicle, expense,
                                 dateFAEditText.getText().toString(), mileage, 0, " ", fuelUnitAmount,
                                 fuelUnitPrice, fuelFull, fuelTankNum, " ", " ", -1, tankMissed))
@@ -127,9 +170,9 @@ public class AddFuelFragment extends Fragment {
 
     private void saveCostData() {
         mileage = Integer.parseInt(mileageFAEditText.getText().toString());
+        expense = Double.parseDouble(expenseFAEditText.getText().toString());
         fuelUnitAmount = Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
         fuelUnitPrice = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString());
-        expense = Double.parseDouble(expenseFAEditText.getText().toString());
         if (fuelFullFACheckBox.isChecked()) {
             fuelFull = 1; //Full fueled
         } else {

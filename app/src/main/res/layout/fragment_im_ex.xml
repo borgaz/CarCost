@@ -4,28 +4,50 @@
     android:layout_height="match_parent"
     tools:context="com.kuba.carcost.fragment.ImExFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <Button
-        android:text="@string/import_DB"
+    <TextView
+        android:id="@+id/textView23"
+        android:text="@string/export_db"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:id="@+id/button" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp" />
 
     <Button
-        android:text="Button"
+        android:id="@+id/exportDbButton"
+        android:text="@string/export_db_button"
+        android:textStyle="normal|bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:id="@+id/button2" />
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView23"
+        android:layout_alignLeft="@+id/textView23"
+        android:layout_alignStart="@+id/textView23" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:text="@string/import_db"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/exportDbButton"
+        android:layout_alignLeft="@+id/textView23"
+        android:layout_alignStart="@+id/textView23" />
+
+    <Button
+        android:id="@+id/importDbButton"
+        android:text="@string/import_db_button"
+        android:textStyle="normal|bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView24"
+        android:layout_alignLeft="@+id/textView23"
+        android:layout_alignStart="@+id/textView23"
+        android:layout_marginTop="8dp" />
+
 </RelativeLayout>

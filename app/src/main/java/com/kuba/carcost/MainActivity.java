@@ -19,17 +19,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.kuba.carcost.fragment.AboutMeFragment;
 import com.kuba.carcost.fragment.AddCostFragment;
 import com.kuba.carcost.fragment.AddFuelFragment;
-import com.kuba.carcost.fragment.ChangeVehicleFragment;
 import com.kuba.carcost.fragment.EditCostFragment;
 import com.kuba.carcost.fragment.HistoryFragment;
 import com.kuba.carcost.fragment.HomeFragment;
 import com.kuba.carcost.fragment.ImExFragment;
-import com.kuba.carcost.fragment.PolicyFragment;
-import com.kuba.carcost.fragment.SettingsFragment;
-import com.kuba.carcost.fragment.StatsFragment;
 import com.kuba.carcost.interfaces.ChangeFragment;
 
 

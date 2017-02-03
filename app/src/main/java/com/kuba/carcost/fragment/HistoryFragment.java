@@ -120,7 +120,12 @@ public class HistoryFragment extends Fragment {
         });
 
         // set Listener on searchButton
-        ////////////////////////////////////////////////////////////////////////////////////
+        searchHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHistoryList();
+            }
+        });
 
         // Set ListView adapter
         setHistoryList();

@@ -2,15 +2,20 @@ package com.kuba.carcost;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
+import android.os.Environment;
 
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 /**
  * Created by Kuba_HP on 21.01.2017.
@@ -113,6 +118,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void importDatabase(Context context) throws IOException {
+        File direct = new File(Environment.getExternalStorageDirectory() + "/CarCost");
+
+        if(!direct.exists()) {
+            if(direct.mkdir()) {
+                //directory is created;
+            }
+        }
+
+        // Close the SQLiteOpenHelper so it will commit the created empty
+        // database to internal storage.
+        close();
+
+        File sd = Environment.getExternalStorageDirectory();
+        File data = Environment.getDataDirectory();
+
+        if (sd.canWrite()) {
+            String currentDBPath = "//data//com.kuba.carcost//databases//carcost.db";
+            String backupDBPath = "/CarCost/carcost.db";
+            File backupDB = new File(data, currentDBPath);
+            File currentDB = new File(sd, backupDBPath);
+
+            FileChannel src = new FileInputStream(currentDB).getChannel();
+            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+            dst.transferFrom(src, 0, src.size());
+            src.close();
+            dst.close();
+        }
+    }
+
+    public void exportDatabase(Context context) throws IOException {
+        File direct = new File(Environment.getExternalStorageDirectory() + "/CarCost");
+
+        if(!direct.exists()) {
+            if(direct.mkdir()) {
+                //directory is created;
+            }
+        }
+
+        // Close the SQLiteOpenHelper so it will commit the created empty
+        // database to internal storage.
+        close();
+
+        File sd = Environment.getExternalStorageDirectory();
+        File data = Environment.getDataDirectory();
+
+        if (sd.canWrite()) {
+            String currentDBPath = "//data//com.kuba.carcost//databases//carcost.db";
+            String backupDBPath = "/CarCost/carcost.db";
+            File currentDB = new File(data, currentDBPath);
+            File backupDB = new File(sd, backupDBPath);
+
+            FileChannel src = new FileInputStream(currentDB).getChannel();
+            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+            dst.transferFrom(src, 0, src.size());
+            src.close();
+            dst.close();
+        }
+    }
+
     public boolean insertUserData(String name, int theme, int distance_unit, int volume_unit, int last_vehicle) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -121,10 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(USER_COL_4, distance_unit);
         contentValues.put(USER_COL_5, volume_unit);
         contentValues.put(USER_COL_6, last_vehicle);
-        if (db.insert(USER_TABLE, null, contentValues) == -1)
-            return false;
-        else
-            return true;
+        return db.insert(USER_TABLE, null, contentValues) != -1;
     }
 
     public boolean insertVehicleData(int user_id, String name, int fuel_type_1, double tank_volume_1,
@@ -137,10 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(VEHICLE_COL_5, tank_volume_1);
         contentValues.put(VEHICLE_COL_6, fuel_type_2);
         contentValues.put(VEHICLE_COL_7, tank_volume_2);
-        if (db.insert(VEHICLE_TABLE, null, contentValues) == -1)
-            return false;
-        else
-            return true;
+        return db.insert(VEHICLE_TABLE, null, contentValues) != -1;
     }
 
     public boolean insertCostData(int vehicle_id, double expense, String cost_date, int mileage,
@@ -163,40 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COST_COL_13, insurer);
         contentValues.put(COST_COL_14, insurance);
         contentValues.put(COST_COL_15, tank_missed);
-        if (db.insert(COST_TABLE, null, contentValues) == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public boolean updateUserData(int id, String name, int theme, int distance_unit, int volume_unit, int last_vehicle) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_COL_2, name);
-        contentValues.put(USER_COL_3, theme);
-        contentValues.put(USER_COL_4, distance_unit);
-        contentValues.put(USER_COL_5, volume_unit);
-        contentValues.put(USER_COL_6, last_vehicle);
-        if (db.update(USER_TABLE, contentValues, "id = ?", new String[] {Integer.toString(id)}) == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public boolean updateVehicleData(int id, int user_id, String name, int fuel_type_1, double tank_volume_1,
-                                     int fuel_type_2, double tank_volume_2) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(VEHICLE_COL_2, user_id);
-        contentValues.put(VEHICLE_COL_3, name);
-        contentValues.put(VEHICLE_COL_4, fuel_type_1);
-        contentValues.put(VEHICLE_COL_5, tank_volume_1);
-        contentValues.put(VEHICLE_COL_6, fuel_type_2);
-        contentValues.put(VEHICLE_COL_7, tank_volume_2);
-        if (db.update(VEHICLE_TABLE, contentValues, "id = ?", new String[] {Integer.toString(id)}) == -1)
-            return false;
-        else
-            return true;
+        return db.insert(COST_TABLE, null, contentValues) != -1;
     }
 
     public boolean updateCostData(int id, int vehicle_id, double expense, String cost_date, int mileage,
@@ -219,19 +245,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COST_COL_13, insurer);
         contentValues.put(COST_COL_14, insurance);
         contentValues.put(COST_COL_15, tank_missed);
-        if (db.update(COST_TABLE, contentValues, "id = ?", new String[] {Integer.toString(id)}) == -1)
-            return false;
-        else
-            return true;
+        return db.update(COST_TABLE, contentValues, "id = ?", new String[]{Integer.toString(id)}) != -1;
     }
 
     public boolean deleteCostById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        if (db.delete(COST_TABLE, "id = ", new String[]{Integer.toString(id)}) == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return db.delete(COST_TABLE, "id = " + id, null) != 0;
     }
 
     public Cursor getUser() {
@@ -246,6 +265,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public double getCostDataForAvgFuel() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        double sum;
+        int distance;
+        Cursor res = db.rawQuery("SELECT sum(fuel_unit_amount),min(mileage),max(mileage) FROM " + COST_TABLE, null);
+        if (res.getCount() != 0) {
+            while (res.moveToNext()) {
+                sum = res.getDouble(0);
+                distance = res.getInt(2) - res.getInt(1);
+                sum /= distance;
+                sum *= 100;
+                return sum;
+            }
+        }
+        return 0;
+    }
+
+    public double getCostDataForAvgAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        double sum;
+        int distance;
+        Cursor res = db.rawQuery("SELECT sum(expense),min(mileage),max(mileage) FROM " + COST_TABLE, null);
+        if (res.getCount() != 0) {
+            while (res.moveToNext()) {
+                sum = res.getDouble(0);
+                distance = res.getInt(2) - res.getInt(1);
+                sum /= distance;
+                return sum;
+            }
+        }
+        return 0;
+    }
+
+    public double getCostDataForAvg30() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        double sum;
+        int distance;
+        Cursor res = db.rawQuery("SELECT sum(expense),min(mileage),max(mileage) FROM " + COST_TABLE + " WHERE cost_date BETWEEN date('now','-1 month') AND date('now')", null);
+        if (res.getCount() != 0) {
+            while (res.moveToNext()) {
+                sum = res.getDouble(0);
+                distance = res.getInt(2) - res.getInt(1);
+                if(distance != 0) {
+                    sum /= distance;
+                    return sum;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public ChartEntry getCostDataForChart30() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ChartEntry chartEntry = new ChartEntry();
+        Cursor res = db.rawQuery("SELECT expense, cost_date FROM " + COST_TABLE + " WHERE cost_date BETWEEN date('now','-1 month') AND date('now') ORDER BY cost_date", null);
+        if (res.getCount() != 0) {
+            for (int i = 0; res.moveToNext(); i++) {
+                chartEntry.addBarEntry(new BarEntry(res.getFloat(0), i));
+                chartEntry.addLabel(res.getString(1));
+            }
+            return chartEntry;
+        } else {
+            chartEntry.addBarEntry(new BarEntry(0.0f, 0));
+            chartEntry.addLabel("BrakDanych");
+            return chartEntry;
+        }
+    }
+
     public Cursor getCostByCategoryAndDate(String since, String to, ArrayList<Integer> categories) {
         SQLiteDatabase db = this.getWritableDatabase();
         if(categories.size() != 0) {
@@ -258,10 +347,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
             String param = stringBuilder.toString();
-            Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE (category IN (" + param + ")) AND (cost_date BETWEEN \"" + since + "\" AND \"" + to + "\")", null);
+            Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE (category IN (" + param + ")) AND (cost_date BETWEEN \"" + since + "\" AND \"" + to + "\") ORDER BY cost_date", null);
             return res;
         } else {
-            Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE (cost_date BETWEEN \"" + since + "\" AND \"" + to + "\")", null);
+            Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE cost_date BETWEEN \"" + since + "\" AND \"" + to + "\" ORDER BY cost_date", null);
             return res;
         }
     }
