@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class EditCostFragment extends Fragment {
                         res.getInt(10), res.getString(11), res.getString(12), res.getInt(13), res.getInt(14));
             }
         }
+        myDb.close();
         ((EditText) view.findViewById(R.id.insurerCEEditText)).setText(cost.getInsurer());
         ((Spinner) view.findViewById(R.id.insuranceCESpinner)).setSelection(cost.getInsurance());
 
@@ -92,7 +94,7 @@ public class EditCostFragment extends Fragment {
         categoriesCESpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 2) {
+                if(id == 2) {
                     insurerCETextView.setVisibility(View.VISIBLE);
                     insurerCEEditText.setVisibility(View.VISIBLE);
                     insuranceCETextView.setVisibility(View.VISIBLE);
@@ -119,7 +121,9 @@ public class EditCostFragment extends Fragment {
         view.findViewById(R.id.deleteCEbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                myDb = new DatabaseHelper(view.getContext());
                 myDb.deleteCostById(costId);
+                myDb.close();
                 mListener.backToHistoryFragment();
             }
         });
@@ -141,9 +145,7 @@ public class EditCostFragment extends Fragment {
                 radioCETankNumber.setVisibility(View.VISIBLE);
                 if (cost.getFuelTankNum() == 0) {
                     ((RadioButton) view.findViewById(R.id.radioCETank1)).setChecked(true);
-                    ((RadioButton) view.findViewById(R.id.radioCETank2)).setChecked(false);
                 } else {
-                    ((RadioButton) view.findViewById(R.id.radioCETank1)).setChecked(false);
                     ((RadioButton) view.findViewById(R.id.radioCETank2)).setChecked(true);
                 }
             } else {
@@ -163,7 +165,8 @@ public class EditCostFragment extends Fragment {
         } else {
             view.findViewById(R.id.editFuelLayout).setVisibility(View.GONE);
             view.findViewById(R.id.editCostLayout).setVisibility(View.VISIBLE);
-            categoriesCESpinner.setSelection(cost.getCategory()-1);
+            int i = cost.getCategory()-1;
+            categoriesCESpinner.setSelection(i);
             descriptionCEEditText.setText(cost.getDescription());
             placeCEEditText.setText(cost.getPlace());
             if(cost.getCategory() == 3) {
@@ -188,6 +191,7 @@ public class EditCostFragment extends Fragment {
         cost.setMileage(Integer.parseInt(mileageCEEditText.getText().toString()));
         cost.setCostDate(dateCETextView.getText().toString());
         cost.setExpense(Double.parseDouble(expenseCEEditText.getText().toString()));
+
         // Dla tankowania
         if (cost.getCategory() == 0) {
             cost.setFuelUnitAmount(Double.parseDouble(fuelUnitAmountCEEditText.getText().toString()));
@@ -213,15 +217,19 @@ public class EditCostFragment extends Fragment {
             }
         // Dla pozostałych kategorii
         } else {
-            cost.setCategory((int) categoriesCESpinner.getSelectedItemId());
+            int i = (int) categoriesCESpinner.getSelectedItemId();
+            i++;
+            cost.setCategory(i);
             cost.setDescription(descriptionCEEditText.getText().toString());
             cost.setPlace(placeCEEditText.getText().toString());
             cost.setInsurer(insurerCEEditText.getText().toString());
             cost.setInsurance((int) insuranceCESpinner.getSelectedItemId());
         }
 
+
+        myDb = new DatabaseHelper(view.getContext());
         if(myDb.updateCostData(costId, cost.getVehicleId(), cost.getExpense(),
-                cost.getCostDate(), cost.getMileage(), cost.getCategory(), cost.getDescription(),
+                cost.getCostDate(), cost.getMileage(), ((int) categoriesCESpinner.getSelectedItemId()) + 1, cost.getDescription(),
                 cost.getFuelUnitAmount(), cost.getFuelUnitPrice(), cost.getFuelFull(),
                 cost.getFuelTankNum(), cost.getPlace(), cost.getInsurer(), cost.getInsurance(),
                 cost.getTankMissed())){
@@ -229,6 +237,7 @@ public class EditCostFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "Nie zaktualizowano", Toast.LENGTH_LONG).show();
         }
+        myDb.close();
     }
 
     @Override
