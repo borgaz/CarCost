@@ -1,0 +1,356 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/editLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        tools:context="com.kuba.carcost.fragment.EditCostFragment">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:text="@string/add_cost_mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/mileageCEEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="8"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/textView5"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignStart="@+id/textView6"
+            android:maxLength="9" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:text="@string/add_cost_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@+id/mileageCEEditText"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/dateCETextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/textView6"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5"
+            android:textSize="18sp"
+            android:clickable="true"
+            android:background="@drawable/rounded_corner"
+            android:padding="5dp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:text="@string/add_cost_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/dateCETextView"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5" />
+
+        <EditText
+            android:id="@+id/expenseCEEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:layout_below="@+id/textView11"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_marginTop="8dp" />
+
+        <RelativeLayout
+            android:id="@+id/editFuelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expenseCEEditText"
+            android:layout_marginTop="2dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/fuelUnitAmountCETextView"
+                android:text="@string/add_cost_fuel_unit_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/fuelUnitAmountCEEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="8"
+                android:layout_below="@+id/fuelUnitAmountCETextView"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/fuelUnitPriceCETextView"
+                android:text="@string/add_cost_prize_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/fuelUnitAmountCEEditText"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView" />
+
+            <EditText
+                android:id="@+id/fuelUnitPriceCEEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="8"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/fuelUnitPriceCETextView"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView" />
+
+            <TextView
+                android:id="@+id/tankNumberCETextView"
+                android:text="@string/add_cost_tank_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/fuelUnitPriceCEEditText"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView"
+                android:visibility="gone" />
+
+            <RadioGroup
+                android:id="@+id/radioCETankNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/tankNumberCETextView"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/radioCETank1"
+                    android:text="@string/add_cost_1_tank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radioCETank2"
+                    android:text="@string/add_cost_2_tank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/fuelFullCECheckBox"
+                android:text="@string/add_cost_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:layout_below="@+id/radioCETankNumber"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView"/>
+
+            <CheckBox
+                android:id="@+id/tankMissedCECheckBox"
+                android:text="@string/add_cost_tank_missed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/fuelFullCECheckBox"
+                android:layout_alignLeft="@+id/fuelUnitAmountCETextView"
+                android:layout_alignStart="@+id/fuelUnitAmountCETextView"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/editCostLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editFuelLayout"
+            android:layout_marginTop="2dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/categoriesCETextView"
+                android:text="@string/add_cost_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/categoriesCESpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categoriesCETextView"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                android:entries="@array/cost_categories"/>
+
+            <TextView
+                android:id="@+id/descriptionCETextView"
+                android:text="@string/add_cost_add_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categoriesCESpinner"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/descriptionCEEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:layout_below="@+id/descriptionCETextView"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:maxLength="255" />
+
+            <TextView
+                android:id="@+id/placeCTextView"
+                android:text="@string/add_cost_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descriptionCEEditText"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/placeCEEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:layout_below="@+id/placeCTextView"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:maxLength="255" />
+
+            <TextView
+                android:id="@+id/insurerCETextView"
+                android:text="@string/add_cost_insurer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/placeCEEditText"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/insurerCEEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:layout_below="@+id/insurerCETextView"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:maxLength="255"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/insuranceCETextView"
+                android:text="@string/add_cost_insurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/insurerCEEditText"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/insuranceCESpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/insuranceCETextView"
+                android:layout_alignLeft="@+id/categoriesCETextView"
+                android:layout_alignStart="@+id/categoriesCETextView"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:entries="@array/insurance"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/saveCEButton"
+            android:text="@string/cost_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@+id/editCostLayout"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textStyle="normal|bold" />
+
+        <Button
+            android:id="@+id/deleteCEbutton"
+            android:text="@string/delete_cost_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/expenseCEEditText"
+            android:layout_alignStart="@+id/expenseCEEditText"
+            android:textStyle="normal|bold" />
+
+    </RelativeLayout>
+
+
+</ScrollView>

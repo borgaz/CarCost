@@ -34,15 +34,16 @@
 
     <string-array name="fragment_titles">
         <item>Start</item>
-        <item>Statystyki</item>
+        <!--<item>Statystyki</item>-->
         <item>Historia</item>
         <item>Import/Export</item>
-        <item>Ustawienia</item>
-        <item>Zmień pojazd</item>
-        <item>O mnie</item>
-        <item>Polityka prywatności</item>
+        <!--<item>Ustawienia</item>-->
+        <!--<item>Zmień pojazd</item>-->
+        <!--<item>O mnie</item>-->
+        <!--<item>Polityka prywatności</item>-->
         <item>Dodaj tankowanie</item>
         <item>Dodaj koszt</item>
+        <item>Edytuj koszt</item>
     </string-array>
 
     <string name="settings_custom">Personalizacja</string>
@@ -77,7 +78,7 @@
     <string name="add_cost_tank_number">Wybierz numer baku:</string>
     <string name="add_cost_1_tank">Pierwszy</string>
     <string name="add_cost_2_tank">Drugi</string>
-    <string name="add_cost_category">Wybierz kategorię</string>
+    <string name="add_cost_category">Wybierz kategorię:</string>
     <string name="add_cost_add_description">Wprowadź krótki opis kosztu(opcja):</string>
     <string name="add_cost_insurer">Wprowadź nazwę ubezpieczyciela:</string>
     <string name="add_cost_place">Wprowadź nazwę miejsca(opcja):</string>
@@ -86,8 +87,19 @@
     <string name="to_history">Do:</string>
     <string name="categories_history_button">Kategorie</string>
     <string name="search_history_button">Szukaj</string>
+    <string name="cost_edit_button">Zapisz</string>
+    <string name="category_select_title">Wybierz kategorie</string>
+    <string name="cancel_button">Anuluj</string>
 
-    <string-array name="categories">
+    <string-array name="cost_categories">
+        <item>Konserwacja i naprawy</item>
+        <item>Przegląd</item>
+        <item>Ubezpieczenie</item>
+        <item>Inne</item>
+    </string-array>
+
+    <string-array name="all_categories">
+        <item>Tankowanie</item>
         <item>Konserwacja i naprawy</item>
         <item>Przegląd</item>
         <item>Ubezpieczenie</item>
@@ -98,4 +110,8 @@
         <item>OC</item>
         <item>AC</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_cost_button">Usuń</string>
+    <string name="import_DB">Importuj</string>
 </resources>

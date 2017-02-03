@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +17,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kuba.carcost.fragment.AboutMeFragment;
 import com.kuba.carcost.fragment.AddCostFragment;
 import com.kuba.carcost.fragment.AddFuelFragment;
 import com.kuba.carcost.fragment.ChangeVehicleFragment;
+import com.kuba.carcost.fragment.EditCostFragment;
 import com.kuba.carcost.fragment.HistoryFragment;
 import com.kuba.carcost.fragment.HomeFragment;
 import com.kuba.carcost.fragment.ImExFragment;
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     private static final String _POLICY = "POLICY";
     private static final String _ADDFUEL = "ADDFUEL";
     private static final String _ADDCOST = "ADDCOST";
+    private static final String _EDITCOST = "EDITCOST";
     public static String _CURRENT = _HOME;
     private String name;
 
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     // to load home fragment when back key pressed
     private boolean shouldLoadHomeFragment = true;
     private Handler mHandler;
+    private int costId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,27 +105,27 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
                 if (id == R.id.nav_home) {
                     navCurrentItem = 0;
                     _CURRENT = _HOME;
-                } else if (id == R.id.nav_stats) {
-                    navCurrentItem = 1;
-                    _CURRENT = _STATS;
+//                } else if (id == R.id.nav_stats) {
+//                    navCurrentItem = 1;
+//                    _CURRENT = _STATS;
                 } else if (id == R.id.nav_history) {
-                    navCurrentItem = 2;
+                    navCurrentItem = 1;
                     _CURRENT = _HISTORY;
                 } else if (id == R.id.nav_im_ex) {
-                    navCurrentItem = 3;
+                    navCurrentItem = 2;
                     _CURRENT = _IMEX;
-                } else if (id == R.id.nav_settings) {
-                    navCurrentItem = 4;
-                    _CURRENT = _SETTINGS;
-                } else if (id == R.id.nav_change) {
-                    navCurrentItem = 5;
-                    _CURRENT = _CHANGE;
-                } else if (id == R.id.nav_about_me) {
-                    navCurrentItem = 6;
-                    _CURRENT = _ABOUTME;
-                } else if (id == R.id.nav_policy) {
-                    navCurrentItem = 7;
-                    _CURRENT = _POLICY;
+//                } else if (id == R.id.nav_settings) {
+//                    navCurrentItem = 4;
+//                    _CURRENT = _SETTINGS;
+//                } else if (id == R.id.nav_change) {
+//                    navCurrentItem = 5;
+//                    _CURRENT = _CHANGE;
+//                } else if (id == R.id.nav_about_me) {
+//                    navCurrentItem = 6;
+//                    _CURRENT = _ABOUTME;
+//                } else if (id == R.id.nav_policy) {
+//                    navCurrentItem = 7;
+//                    _CURRENT = _POLICY;
                 }
                 openFragment();
                 return true;
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
             public void onClick(View view) {
 //                Snackbar.make(view, "Kliknięcie plusa", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                navCurrentItem = 8;
+                navCurrentItem = 3;
                 _CURRENT = _ADDFUEL;
                 openFragment();
             }
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
             public boolean onLongClick(View view) {
 //                Snackbar.make(view, "Długie kliknięcie plusa", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                navCurrentItem = 9;
+                navCurrentItem = 4;
                 _CURRENT = _ADDCOST;
                 openFragment();
                 return true;
@@ -221,14 +222,14 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            navCurrentItem = 4;
-            _CURRENT = _SETTINGS;
-            openFragment();
-            return true;
-        } else if(id == R.id.action_tutorial) {
-            // TTTTUUUUUTTTTOOORRRIIAAALLLLLLL------------------------------------------
-        }
+//        if (id == R.id.action_settings) {
+//            navCurrentItem = 4;
+//            _CURRENT = _SETTINGS;
+//            openFragment();
+//            return true;
+//        } else if(id == R.id.action_tutorial) {
+//            // TTTTUUUUUTTTTOOORRRIIAAALLLLLLL------------------------------------------
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -257,33 +258,36 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         if (navCurrentItem == 0) {
             HomeFragment homeFragment = new HomeFragment();
             return homeFragment;
+//        } else if (navCurrentItem == 1) {
+//            StatsFragment statsFragment = new StatsFragment();
+//            return statsFragment;
         } else if (navCurrentItem == 1) {
-            StatsFragment statsFragment = new StatsFragment();
-            return statsFragment;
-        } else if (navCurrentItem == 2) {
             HistoryFragment historyFragment = new HistoryFragment();
             return historyFragment;
-        } else if (navCurrentItem == 3) {
+        } else if (navCurrentItem == 2) {
             ImExFragment imExFragment = new ImExFragment();
             return imExFragment;
-        } else if (navCurrentItem == 4) {
-            SettingsFragment settingsFragment = new SettingsFragment();
-            return settingsFragment;
-        } else if (navCurrentItem == 5) {
-            ChangeVehicleFragment changeVehicleFragment = new ChangeVehicleFragment();
-            return changeVehicleFragment;
-        } else if (navCurrentItem == 6) {
-            AboutMeFragment aboutMeFragment = new AboutMeFragment();
-            return aboutMeFragment;
-        } else if (navCurrentItem == 7) {
-            PolicyFragment policyFragment = new PolicyFragment();
-            return policyFragment;
-        } else if (navCurrentItem == 8) {
+//        } else if (navCurrentItem == 4) {
+//            SettingsFragment settingsFragment = new SettingsFragment();
+//            return settingsFragment;
+//        } else if (navCurrentItem == 5) {
+//            ChangeVehicleFragment changeVehicleFragment = new ChangeVehicleFragment();
+//            return changeVehicleFragment;
+//        } else if (navCurrentItem == 6) {
+//            AboutMeFragment aboutMeFragment = new AboutMeFragment();
+//            return aboutMeFragment;
+//        } else if (navCurrentItem == 7) {
+//            PolicyFragment policyFragment = new PolicyFragment();
+//            return policyFragment;
+        } else if (navCurrentItem == 3) {
             AddFuelFragment addFuelFragment = new AddFuelFragment();
             return addFuelFragment;
-        } else if (navCurrentItem == 9) {
+        } else if (navCurrentItem == 4) {
             AddCostFragment addCostFragment = new AddCostFragment();
             return addCostFragment;
+        } else if (navCurrentItem == 5) {
+            EditCostFragment editCostFragment = new EditCostFragment();
+            return editCostFragment;
         } else {
             return new HomeFragment();
         }
@@ -305,7 +309,10 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
             @Override
             public void run() {
                 // update the main content by replacing fragments
+                Bundle bundle = new Bundle();
+                bundle.putInt(_CURRENT, costId);
                 Fragment fragment = getCurrentFragment();
+                fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.content_main, fragment, _CURRENT);
@@ -329,6 +336,23 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
     public void openHomeFragment() {
         navCurrentItem = 0;
         _CURRENT = _HOME;
+
+        openFragment();
+    }
+
+    @Override
+    public void openEditFragment(int costId) {
+        this.costId = costId;
+        navCurrentItem = 5;
+        _CURRENT = _EDITCOST;
+
+        openFragment();
+    }
+
+    @Override
+    public void backToHistoryFragment() {
+        navCurrentItem = 1;
+        _CURRENT = _HISTORY;
 
         openFragment();
     }

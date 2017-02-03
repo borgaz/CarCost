@@ -65,7 +65,6 @@ public class AddCostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_cost, container, false);
-        myDb = new DatabaseHelper(view.getContext());
         mileageCAEditText = (EditText) view.findViewById(R.id.mileageCAEditText);
         dateCAEditText = (TextView) view.findViewById(R.id.dateCATextView);
         expenseCAEditText = (EditText) view.findViewById(R.id.expenseCAEditText);
@@ -76,7 +75,9 @@ public class AddCostFragment extends Fragment {
         insurerEditText = (EditText) view.findViewById(R.id.insurerEditText);
         insuranceTextView = (TextView) view.findViewById(R.id.insuranceTextView);
         insuranceSpinner = (Spinner) view.findViewById(R.id.insuranceSpinner);
+
         setDate(new GregorianCalendar());
+        myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getUser();
         while (res.moveToNext()) {
             currentVehicle = res.getInt(5);
@@ -129,7 +130,7 @@ public class AddCostFragment extends Fragment {
                         expenseCAEditText.setError("Pole wymagane.");
                     } else {
                         if(myDb.insertCostData(currentVehicle, expense,
-                                dateCAEditText.getText().toString(), mileage, category, description,
+                                dateCAEditText.getText().toString(), mileage, category+1, description,
                                 -1, -1, -1, -1, place, insurer, insurance+1, -1))
                             Toast.makeText(getContext(), "Dodano koszt.", Toast.LENGTH_SHORT).show();
                         else
@@ -167,7 +168,7 @@ public class AddCostFragment extends Fragment {
             mListener = (ChangeFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnChangeFragmentListener");
         }
     }
 

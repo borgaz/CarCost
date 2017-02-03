@@ -108,7 +108,7 @@
                 android:layout_alignStart="@+id/dateTextView"
                 android:layout_marginTop="8dp"
                 android:textSize="20sp"
-                android:entries="@array/categories"/>
+                android:entries="@array/cost_categories"/>
 
             <TextView
                 android:id="@+id/textView19"

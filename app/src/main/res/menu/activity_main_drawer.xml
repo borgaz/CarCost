@@ -6,10 +6,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/home_48"
             android:title="@string/slide_home" />
-        <item
+        <!--<item
             android:id="@+id/nav_stats"
             android:icon="@drawable/stats_48"
-            android:title="@string/slide_stats" />
+            android:title="@string/slide_stats" />-->
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/history_48"
@@ -18,13 +18,13 @@
             android:id="@+id/nav_im_ex"
             android:icon="@drawable/im_ex_48"
             android:title="@string/slide_im_ex" />
-        <item
+        <!--<item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings_48"
-            android:title="@string/settings" />
+            android:title="@string/settings" />-->
     </group>
 
-    <item android:title="@string/slide_others">
+    <!--<item android:title="@string/slide_others">
         <menu>
             <item
                 android:id="@+id/nav_change"
@@ -39,6 +39,6 @@
                 android:icon="@drawable/policy_48"
                 android:title="@string/slide_policy" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>

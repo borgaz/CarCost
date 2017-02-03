@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 /**
@@ -224,6 +225,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean deleteCostById(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (db.delete(COST_TABLE, "id = ", new String[]{Integer.toString(id)}) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public Cursor getUser() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + USER_TABLE, null);
@@ -236,30 +246,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getCostByCategory(String since, String to, int... params) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(params[0]);
-        for(int i = 1; i < params.length; i++) {
-            stringBuilder.append(", ");
-            stringBuilder.append(params[i]);
+    public Cursor getCostByCategoryAndDate(String since, String to, ArrayList<Integer> categories) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if(categories.size() != 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(categories.get(0).intValue());
+            if (categories.size() > 1) {
+                for (int i = 1; i < categories.size(); i++) {
+                    stringBuilder.append(", ");
+                    stringBuilder.append(categories.get(i).intValue());
+                }
+            }
+            String param = stringBuilder.toString();
+            Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE (category IN (" + param + ")) AND (cost_date BETWEEN \"" + since + "\" AND \"" + to + "\")", null);
+            return res;
+        } else {
+            Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE (cost_date BETWEEN \"" + since + "\" AND \"" + to + "\")", null);
+            return res;
         }
-        String param = stringBuilder.toString();
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + "WHERE (category IN (" + param + ")) AND (cost_date BETWEEN \"" + since + "\" AND \"" + to + "\")", null);
-        return res;
     }
 
-    public Cursor getCostByDate(String since, String to) {
+    public Cursor getCostById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + "WHERE cost_date BETWEEN \"" + since + "\" AND \"" + to + "\"" , null);
+        Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + " WHERE id = " + id, null);
         return res;
     }
-
-    public Cursor getLastMonthCost() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + COST_TABLE + "WHERE cost_date >= date('now', '-1 months')", null);
-        return res;
-    }
-
-
 }

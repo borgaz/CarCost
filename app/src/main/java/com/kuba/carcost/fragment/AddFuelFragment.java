@@ -131,19 +131,23 @@ public class AddFuelFragment extends Fragment {
         fuelUnitPrice = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString());
         expense = Double.parseDouble(expenseFAEditText.getText().toString());
         if (fuelFullFACheckBox.isChecked()) {
-            fuelFull = 1;
+            fuelFull = 1; //Full fueled
         } else {
-            fuelFull = 0;
+            fuelFull = 0; //Not full fueled
         }
-        if(radioTankNumber.getCheckedRadioButtonId() == R.id.radioTank1) {
-            fuelTankNum = 0;
+        if(hasTwoTanks != -1) {
+            if (radioTankNumber.getCheckedRadioButtonId() == R.id.radioTank1) {
+                fuelTankNum = 0;
+            } else {
+                fuelTankNum = 1;
+            }
         } else {
-            fuelTankNum = 1;
+            fuelTankNum = hasTwoTanks;
         }
         if(tankMissedCheckBox.isChecked()) {
-            tankMissed = 1; // Pominięto poprzednie tankowanie
+            tankMissed = 1; // Last fuel missed
         } else {
-            tankMissed = 0; // Nie pominięto poprzedniego tankowania
+            tankMissed = 0; // Last fuel not missed
         }
     }
 
@@ -154,7 +158,7 @@ public class AddFuelFragment extends Fragment {
             mListener = (ChangeFragment) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnChangeFragmentListener");
         }
     }
 
