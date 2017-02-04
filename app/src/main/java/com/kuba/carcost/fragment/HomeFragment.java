@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
-import com.kuba.carcost.Data;
+import com.kuba.carcost.ChartEntry;
 import com.kuba.carcost.DatabaseHelper;
 import com.kuba.carcost.R;
 
@@ -56,15 +56,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void setHomeChart() {
-        Data data = new Data(getContext());
+        myDb = new DatabaseHelper(getContext());
+        ChartEntry chartEntry = myDb.getCostDataForChart30();
         barDataSet = new ArrayList<>();
-        barDataSet.add(new BarDataSet(data.getEntries(),
+        barDataSet.add(new BarDataSet(chartEntry.getEntries(),
                 getString(R.string.fragment_home_fuel_label)));
-        barData = new BarData(data.getLabels(), barDataSet);
+        barData = new BarData(chartEntry.getLabels(), barDataSet);
         barChart = (HorizontalBarChart) view.findViewById(R.id.homeChart);
         barChart.setData(barData);
         barChart.setDescription("Koszty z minionego miesiąca");
         barChart.invalidate();
+        myDb.close();
     }
 
     private void setUserName() {

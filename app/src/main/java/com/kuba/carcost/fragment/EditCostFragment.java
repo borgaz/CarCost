@@ -217,8 +217,7 @@ public class EditCostFragment extends Fragment {
             }
         // Dla pozostałych kategorii
         } else {
-            int i = (int) categoriesCESpinner.getSelectedItemId();
-            i++;
+            int i = ((int) categoriesCESpinner.getSelectedItemId()) + 1;
             cost.setCategory(i);
             cost.setDescription(descriptionCEEditText.getText().toString());
             cost.setPlace(placeCEEditText.getText().toString());
@@ -229,7 +228,7 @@ public class EditCostFragment extends Fragment {
 
         myDb = new DatabaseHelper(view.getContext());
         if(myDb.updateCostData(costId, cost.getVehicleId(), cost.getExpense(),
-                cost.getCostDate(), cost.getMileage(), ((int) categoriesCESpinner.getSelectedItemId()) + 1, cost.getDescription(),
+                cost.getCostDate(), cost.getMileage(), cost.getCategory(), cost.getDescription(),
                 cost.getFuelUnitAmount(), cost.getFuelUnitPrice(), cost.getFuelFull(),
                 cost.getFuelTankNum(), cost.getPlace(), cost.getInsurer(), cost.getInsurance(),
                 cost.getTankMissed())){

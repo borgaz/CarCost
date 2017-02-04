@@ -62,7 +62,6 @@ public class IntroActivity extends AppCompatActivity {
 //            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 //        }
         setContentView(R.layout.activity_intro);
-        myDb = new DatabaseHelper(this);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout=(LinearLayout) findViewById(R.id.layoutDots);
@@ -211,6 +210,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void saveIntroDataToDB () {
+        myDb = new DatabaseHelper(this);
         if (myDb.insertUserData(userName, 0, distanceUnit, volumeUnit, 1))
             Toast.makeText(getApplicationContext(), "Dodano usera.", Toast.LENGTH_SHORT).show();
         else
@@ -220,6 +220,7 @@ public class IntroActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Dodano pojazd.", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(getApplicationContext(), "Nie dodano pojazdu.", Toast.LENGTH_SHORT).show();
+        myDb.close();
     }
 
     private void setViewListener() {

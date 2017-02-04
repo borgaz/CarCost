@@ -120,61 +120,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void importDatabase(Context context) throws IOException {
         File direct = new File(Environment.getExternalStorageDirectory() + "/CarCost");
-
+        String cDBPath = "//data//com.kuba.carcost//databases//carcost.db";
+        String bDBPath = "/CarCost/carcost.db";
         if(!direct.exists()) {
-            if(direct.mkdir()) {
-                //directory is created;
-            }
+            if(direct.mkdir()) {}
         }
-
-        // Close the SQLiteOpenHelper so it will commit the created empty
-        // database to internal storage.
-        close();
-
         File sd = Environment.getExternalStorageDirectory();
         File data = Environment.getDataDirectory();
-
-        if (sd.canWrite()) {
-            String currentDBPath = "//data//com.kuba.carcost//databases//carcost.db";
-            String backupDBPath = "/CarCost/carcost.db";
-            File backupDB = new File(data, currentDBPath);
-            File currentDB = new File(sd, backupDBPath);
-
-            FileChannel src = new FileInputStream(currentDB).getChannel();
-            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-            dst.transferFrom(src, 0, src.size());
-            src.close();
-            dst.close();
+        try {
+            if (sd.canWrite()) {
+                File backupDB = new File(data, cDBPath);
+                File currentDB = new File(sd, bDBPath);
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void exportDatabase(Context context) throws IOException {
         File direct = new File(Environment.getExternalStorageDirectory() + "/CarCost");
-
-        if(!direct.exists()) {
-            if(direct.mkdir()) {
-                //directory is created;
-            }
+        String currentDBPath = "//data//com.kuba.carcost//databases//carcost.db";
+        String backupDBPath = "/CarCost/carcost.db";
+        if (!direct.exists()) {
+            if (direct.mkdir()) {}
         }
-
-        // Close the SQLiteOpenHelper so it will commit the created empty
-        // database to internal storage.
-        close();
-
         File sd = Environment.getExternalStorageDirectory();
         File data = Environment.getDataDirectory();
+        try {
+            if (sd.canWrite()) {
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDBPath);
 
-        if (sd.canWrite()) {
-            String currentDBPath = "//data//com.kuba.carcost//databases//carcost.db";
-            String backupDBPath = "/CarCost/carcost.db";
-            File currentDB = new File(data, currentDBPath);
-            File backupDB = new File(sd, backupDBPath);
-
-            FileChannel src = new FileInputStream(currentDB).getChannel();
-            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-            dst.transferFrom(src, 0, src.size());
-            src.close();
-            dst.close();
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -202,10 +191,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(VEHICLE_TABLE, null, contentValues) != -1;
     }
 
-    public boolean insertCostData(int vehicle_id, double expense, String cost_date, int mileage,
-                                  int category, String description, double fuel_unit_amount,
-                                  double fuel_unit_price, int fuel_full, int fuel_tank_num,
-                                  String place, String insurer, int insurance, int tank_missed) {
+    public boolean insertCostData(int vehicle_id, double expense,
+                                  String cost_date, int mileage,
+                                  int category, String description,
+                                  double fuel_unit_amount,
+                                  double fuel_unit_price,
+                                  int fuel_full, int fuel_tank_num,
+                                  String place, String insurer,
+                                  int insurance, int tank_missed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COST_COL_2, vehicle_id);

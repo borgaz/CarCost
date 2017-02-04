@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
             public void run() {
                 myDb = new DatabaseHelper(getBaseContext());
                 Cursor res = myDb.getUser();
-                myDb.close();
-                if(res.getCount() == 0){
-                    Intent i = new Intent(MainActivity.this, IntroActivity.class);
-                    startActivity(i);
+                int i = res.getCount();
+                if(i == 0){
+                    Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -157,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements ChangeFragment  {
         try {
             myDb = new DatabaseHelper(this);
             Cursor res = myDb.getUser();
-            myDb.close();
             while (res.moveToNext()) {
                 currentVehicle = res.getInt(5);
             }
+            myDb.close();
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
         }

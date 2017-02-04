@@ -79,10 +79,10 @@ public class AddCostFragment extends Fragment {
         setDate(new GregorianCalendar());
         myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getUser();
-        myDb.close();
         while (res.moveToNext()) {
             currentVehicle = res.getInt(5);
         }
+        myDb.close();
 
         categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -102,7 +102,6 @@ public class AddCostFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-
 
         dateCAEditText.setOnClickListener(new View.OnClickListener() {
             @Override

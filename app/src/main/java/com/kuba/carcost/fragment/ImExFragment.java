@@ -40,7 +40,7 @@ public class ImExFragment extends Fragment {
                 try {
                     myDb = new DatabaseHelper(view.getContext());
                     myDb.importDatabase(getContext());
-                } catch (Exception e) {
+                } catch (IOException e) {
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
                 } finally {
                     myDb.close();
@@ -54,7 +54,7 @@ public class ImExFragment extends Fragment {
                 try{
                     myDb = new DatabaseHelper(view.getContext());
                     myDb.exportDatabase(getContext());
-                } catch (Exception e){
+                } catch (IOException e){
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
                 } finally {
                     myDb.close();

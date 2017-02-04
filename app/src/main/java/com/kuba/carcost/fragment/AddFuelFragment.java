@@ -62,7 +62,6 @@ public class AddFuelFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_fuel, container, false);
-        myDb = new DatabaseHelper(view.getContext());
         mileageFAEditText = (EditText) view.findViewById(R.id.mileageFAEditText);
         dateFAEditText = (TextView) view.findViewById(R.id.dateFATextView);
         expenseFAEditText = (EditText) view.findViewById(R.id.expenseFAEditText);
@@ -73,6 +72,7 @@ public class AddFuelFragment extends Fragment {
         tankNumberTextView = (TextView) view.findViewById(R.id.tankNumberTextView);
         radioTankNumber = (RadioGroup) view.findViewById(R.id.radioTankNumber);
         setDate(new GregorianCalendar());
+        myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getUser();
         while (res.moveToNext()) {
             currentVehicle = res.getInt(5);

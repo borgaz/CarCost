@@ -77,7 +77,6 @@ public class HistoryFragment extends Fragment {
         categoryList.add(2);
         categoryList.add(3);
         categoryList.add(4);
-        myDb = new DatabaseHelper(view.getContext());
 
         // Initialize toDate
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -142,7 +141,6 @@ public class HistoryFragment extends Fragment {
         myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getCostByCategoryAndDate(sinceDateHistoryTextView.getText().toString(),
                 toDateHistoryTextView.getText().toString(), categoryList);
-        myDb.close();
         costList = new ArrayList<>();
         if (res.getCount() != 0) {
             while (res.moveToNext()) {
@@ -166,6 +164,7 @@ public class HistoryFragment extends Fragment {
                 });
             }
         }
+        myDb.close();
     }
 
     public void showDatePickerDialog(View view) {
