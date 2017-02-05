@@ -1,9 +1,13 @@
 package com.kuba.carcost.fragment;
 
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,19 +30,23 @@ import com.kuba.carcost.DatabaseHelper;
 import com.kuba.carcost.R;
 import com.kuba.carcost.interfaces.ChangeFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditCostFragment extends Fragment {
+public class EditCostFragment extends Fragment implements EditView {
 
     private View view;
     private DatabaseHelper myDb;
     private Cost cost;
     private int costId;
     private ChangeFragment mListener;
+    private EditValidator validator;
 
     private EditText mileageCEEditText;
-    private TextView dateCETextView;
+    private static TextView dateCETextView;
     private EditText fuelUnitPriceCEEditText;
     private EditText expenseCEEditText;
     private EditText fuelUnitAmountCEEditText;
@@ -73,6 +82,8 @@ public class EditCostFragment extends Fragment {
         insurerCEEditText = (EditText) view.findViewById(R.id.insurerCEEditText);
         insuranceCETextView = (TextView) view.findViewById(R.id.insuranceCETextView);
         insuranceCESpinner = (Spinner) view.findViewById(R.id.insuranceCESpinner);
+
+        validator = new EditValidator(this);
 
         Bundle bundle = getArguments();
         costId = bundle.getInt("EDITCOST");
@@ -110,11 +121,17 @@ public class EditCostFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        dateCETextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+
         view.findViewById(R.id.saveCEButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveCostData();
-                mListener.backToHistoryFragment();
             }
         });
 
@@ -187,56 +204,68 @@ public class EditCostFragment extends Fragment {
     }
 
     public void saveCostData() {
-
         cost.setMileage(Integer.parseInt(mileageCEEditText.getText().toString()));
         cost.setCostDate(dateCETextView.getText().toString());
         cost.setExpense(Double.parseDouble(expenseCEEditText.getText().toString()));
 
         // Dla tankowania
         if (cost.getCategory() == 0) {
-            cost.setFuelUnitAmount(Double.parseDouble(fuelUnitAmountCEEditText.getText().toString()));
-            cost.setFuelUnitPrice(Double.parseDouble(fuelUnitPriceCEEditText.getText().toString()));
-            if (cost.getFuelTankNum() != -1) {
-                if (cost.getFuelTankNum() == 0) {
-                    if (radioCETankNumber.getCheckedRadioButtonId() == R.id.radioTank1) {
-                        cost.setFuelTankNum(0);
-                    } else {
-                        cost.setFuelTankNum(1);
+            validator.setCategory(0);
+            if (validator.validate()) {
+                cost.setFuelUnitAmount(Double.parseDouble(fuelUnitAmountCEEditText.getText().toString()));
+                cost.setFuelUnitPrice(Double.parseDouble(fuelUnitPriceCEEditText.getText().toString()));
+                if (cost.getFuelTankNum() != -1) {
+                    if (cost.getFuelTankNum() == 0) {
+                        if (radioCETankNumber.getCheckedRadioButtonId() == R.id.radioTank1) {
+                            cost.setFuelTankNum(0);
+                        } else {
+                            cost.setFuelTankNum(1);
+                        }
                     }
                 }
-            }
-            if (fuelFullCECheckBox.isChecked()) {
-                cost.setFuelFull(1);
+                if (fuelFullCECheckBox.isChecked()) {
+                    cost.setFuelFull(1);
+                } else {
+                    cost.setFuelFull(0);
+                }
+                if (tankMissedCECheckBox.isChecked()) {
+                    cost.setTankMissed(1);
+                } else {
+                    cost.setTankMissed(0);
+                }
             } else {
-                cost.setFuelFull(0);
+                myDb.close();
+                return;
             }
-            if (tankMissedCECheckBox.isChecked()) {
-                cost.setTankMissed(1);
-            } else {
-                cost.setTankMissed(0);
-            }
-        // Dla pozostałych kategorii
+            // Dla pozostałych kategorii
         } else {
-            int i = ((int) categoriesCESpinner.getSelectedItemId()) + 1;
-            cost.setCategory(i);
-            cost.setDescription(descriptionCEEditText.getText().toString());
-            cost.setPlace(placeCEEditText.getText().toString());
-            cost.setInsurer(insurerCEEditText.getText().toString());
-            cost.setInsurance((int) insuranceCESpinner.getSelectedItemId());
+            validator.setCategory(cost.getCategory());
+            if (validator.validate()) {
+                int i = ((int) categoriesCESpinner.getSelectedItemId()) + 1;
+                cost.setCategory(i);
+                cost.setDescription(descriptionCEEditText.getText().toString());
+                cost.setPlace(placeCEEditText.getText().toString());
+                cost.setInsurer(insurerCEEditText.getText().toString());
+                cost.setInsurance((int) insuranceCESpinner.getSelectedItemId());
+            } else {
+                myDb.close();
+                return;
+            }
         }
 
-
         myDb = new DatabaseHelper(view.getContext());
-        if(myDb.updateCostData(costId, cost.getVehicleId(), cost.getExpense(),
+        if (myDb.updateCostData(costId, cost.getVehicleId(), cost.getExpense(),
                 cost.getCostDate(), cost.getMileage(), cost.getCategory(), cost.getDescription(),
                 cost.getFuelUnitAmount(), cost.getFuelUnitPrice(), cost.getFuelFull(),
                 cost.getFuelTankNum(), cost.getPlace(), cost.getInsurer(), cost.getInsurance(),
-                cost.getTankMissed())){
+                cost.getTankMissed())) {
             Toast.makeText(getContext(), "Zaktualizowano", Toast.LENGTH_LONG).show();
+            myDb.close();
+            mListener.backToHistoryFragment();
         } else {
             Toast.makeText(getContext(), "Nie zaktualizowano", Toast.LENGTH_LONG).show();
+            myDb.close();
         }
-        myDb.close();
     }
 
     @Override
@@ -254,5 +283,77 @@ public class EditCostFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public String getMileage() {
+        return mileageCEEditText.getText().toString();
+    }
+
+    @Override
+    public String getExpense() {
+        return expenseCEEditText.getText().toString();
+    }
+
+    @Override
+    public String getFuelUnitAmount() {
+        return fuelUnitAmountCEEditText.getText().toString();
+    }
+
+    @Override
+    public String getFuelUnitPrice() {
+        return fuelUnitPriceCEEditText.getText().toString();
+    }
+
+    @Override
+    public void showMileageError(int resId) {
+        mileageCEEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showExpenseError(int resId) {
+        expenseCEEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showFuelUnitAmountError(int resId) {
+        fuelUnitAmountCEEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showFuelUnitPriceError(int resId) {
+        fuelUnitPriceCEEditText.setError(getString(resId));
+    }
+
+    private static void setDate(final GregorianCalendar gregorianCalendar) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat.setCalendar(gregorianCalendar);
+        String date = simpleDateFormat.format(gregorianCalendar.getTime());
+        dateCETextView.setText(date);
+    }
+
+    private void showDatePickerDialog(View v) {
+        AddCostFragment.DatePickerFragment fragment = new AddCostFragment.DatePickerFragment();
+        fragment.show(getFragmentManager(), "datePicker");
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            int year = gregorianCalendar.get(GregorianCalendar.YEAR);
+            int month = gregorianCalendar.get(GregorianCalendar.MONTH);
+            int day = gregorianCalendar.get(GregorianCalendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month, dayOfMonth);
+            setDate(gregorianCalendar);
+        }
     }
 }

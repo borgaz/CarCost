@@ -16,10 +16,9 @@
     <string name="intro_user_g">Galony</string>
     <string name="intro_perm">Uprawnienia</string>
     <string name="intro_perm_storage">
-        Aplikacja wymaga do poprawnego funkcjonowania importu i eksportu
+        Aplikacja wymaga do poprawnego funkcjonowania importu i eksportu,
         uprawnień związanych ze pamięcią.
     </string>
-
 
     <string name="slide_home">Start</string>
     <string name="slide_stats">Statystyki</string>
@@ -31,20 +30,6 @@
     <string name="slide_change">Zmień pojazd</string>
     <string name="slide_about_me">O mnie</string>
     <string name="slide_policy">Polityka prywatności</string>
-
-    <string-array name="fragment_titles">
-        <item>Start</item>
-        <!--<item>Statystyki</item>-->
-        <item>Historia</item>
-        <item>Import/Export</item>
-        <!--<item>Ustawienia</item>-->
-        <!--<item>Zmień pojazd</item>-->
-        <!--<item>O mnie</item>-->
-        <!--<item>Polityka prywatności</item>-->
-        <item>Dodaj tankowanie</item>
-        <item>Dodaj koszt</item>
-        <item>Edytuj koszt</item>
-    </string-array>
 
     <string name="settings_custom">Personalizacja</string>
     <string name="settings_tutorial">Samouczek</string>
@@ -66,6 +51,7 @@
     <string name="back">Wstecz</string>
     <string name="end">Zakończ</string>
     <string name="car">Pojazd</string>
+
     <string name="add_cost_add">Dodaj</string>
     <string name="add_cost_check_box">Tankowanie do pełna</string>
     <string name="add_cost_prize_unit">Cena za jednostkę:</string>
@@ -82,6 +68,7 @@
     <string name="add_cost_insurer">Wprowadź nazwę ubezpieczyciela:</string>
     <string name="add_cost_place">Wprowadź nazwę miejsca(opcja):</string>
     <string name="add_cost_insurance">Wybierz typ ubezpieczenia:</string>
+
     <string name="since_history">Od:</string>
     <string name="to_history">Do:</string>
     <string name="categories_history_button">Kategorie</string>
@@ -90,6 +77,16 @@
     <string name="category_select_title">Wybierz kategorie</string>
     <string name="cancel_button">Anuluj</string>
     <string name="ok">OK</string>
+
+    <string name="delete_cost_button">Usuń</string>
+    <string name="export_db">Exportuj bazę danych do pliku</string>
+    <string name="export_db_button">Exportuj</string>
+    <string name="import_db">Importuj bazę danych z pliku</string>
+    <string name="import_db_button">Importuj</string>
+
+    <string name="empty_view_error">"Pole jest wymagane."</string>
+    <string name="negative_value_error">"Wartość nie może być ujemna."</string>
+    <string name="uncorrect_format_error">"Niepoprawny format."</string>
 
     <string-array name="cost_categories">
         <item>Konserwacja i naprawy</item>
@@ -111,11 +108,18 @@
         <item>AC</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="delete_cost_button">Usuń</string>
-    <string name="export_db">Exportuj bazę danych do pliku</string>
-    <string name="export_db_button">Exportuj</string>
-    <string name="import_db">Importuj bazę danych z pliku</string>
-    <string name="import_db_button">Importuj</string>
+    <string-array name="fragment_titles">
+        <item>Start</item>
+        <!--<item>Statystyki</item>-->
+        <item>Historia</item>
+        <item>Import/Export</item>
+        <!--<item>Ustawienia</item>-->
+        <!--<item>Zmień pojazd</item>-->
+        <!--<item>O mnie</item>-->
+        <!--<item>Polityka prywatności</item>-->
+        <item>Dodaj tankowanie</item>
+        <item>Dodaj koszt</item>
+        <item>Edytuj koszt</item>
+    </string-array>
 
 </resources>

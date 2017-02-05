@@ -29,4 +29,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.0.57-beta"
 }

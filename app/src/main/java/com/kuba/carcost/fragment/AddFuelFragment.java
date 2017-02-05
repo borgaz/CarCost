@@ -29,11 +29,12 @@ import java.text.DecimalFormat;
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 
-public class AddFuelFragment extends Fragment {
+public class AddFuelFragment extends Fragment implements FuelView {
 
     private View view;
     private DatabaseHelper myDb;
     private ChangeFragment mListener;
+    private FuelValidator validator;
 
     private RadioGroup radioTankNumber;
     private EditText mileageFAEditText;
@@ -71,6 +72,10 @@ public class AddFuelFragment extends Fragment {
         tankMissedCheckBox = (CheckBox) view.findViewById(R.id.tankMissedCheckBox);
         tankNumberTextView = (TextView) view.findViewById(R.id.tankNumberTextView);
         radioTankNumber = (RadioGroup) view.findViewById(R.id.radioTankNumber);
+        addFuelButton = (Button) view.findViewById(R.id.addFuelButton);
+
+        validator = new FuelValidator(this);
+
         setDate(new GregorianCalendar());
         myDb = new DatabaseHelper(view.getContext());
         Cursor res = myDb.getUser();
@@ -135,35 +140,25 @@ public class AddFuelFragment extends Fragment {
 
     public void onButtonPressed() {
         if (mListener != null) {
-            addFuelButton = (Button) view.findViewById(R.id.addFuelButton);
             addFuelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mileageFAEditText.getText().toString().isEmpty()) {
-                        mileageFAEditText.setError("Przebieg nie może być pusty.");
-                    } else {
+                    if (validator.validate()) {
                         saveCostData();
-                    }
-                    if (mileage <= 0) {
-                        mileageFAEditText.setError("Przebieg musi być dodatni.");
-                    } else if (expense <= 0) {
-                        expenseFAEditText.setError("Podaj liczbę dodatnią.");
-                    } else if (fuelUnitAmount <= 0) {
-                        fuelUnitAmountFAEditText.setError("Podaj liczbę dodatnią.");
-                    } else if (fuelUnitPrice <= 0) {
-                        fuelUnitPriceFAEditText.setError("Podaj liczbę dodatnią.");
-                    } else {
-                        expense = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString())*Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
+                        expense = Double.parseDouble(fuelUnitPriceFAEditText.getText().toString()) * Double.parseDouble(fuelUnitAmountFAEditText.getText().toString());
                         String string = new DecimalFormat("####.##").format(expense);
                         expenseFAEditText.setText(string);
                         myDb = new DatabaseHelper(view.getContext());
-                        if(myDb.insertCostData(currentVehicle, expense,
+                        if (myDb.insertCostData(currentVehicle, expense,
                                 dateFAEditText.getText().toString(), mileage, 0, " ", fuelUnitAmount,
-                                fuelUnitPrice, fuelFull, fuelTankNum, " ", " ", -1, tankMissed))
+                                fuelUnitPrice, fuelFull, fuelTankNum, " ", " ", -1, tankMissed)) {
                             Toast.makeText(getContext(), "Dodano koszt.", Toast.LENGTH_SHORT).show();
-                        else
+                            myDb.close();
+                            mListener.openHomeFragment();
+                        } else {
                             Toast.makeText(getContext(), "Nie dodano kosztu.", Toast.LENGTH_SHORT).show();
-                        myDb.close();
+                            myDb.close();
+                        }
                         mListener.openHomeFragment();
                     }
                 }
@@ -224,6 +219,46 @@ public class AddFuelFragment extends Fragment {
         simpleDateFormat.setCalendar(gregorianCalendar);
         String date = simpleDateFormat.format(gregorianCalendar.getTime());
         dateFAEditText.setText(date);
+    }
+
+    @Override
+    public String getMileage() {
+        return mileageFAEditText.getText().toString();
+    }
+
+    @Override
+    public String getExpense() {
+        return expenseFAEditText.getText().toString();
+    }
+
+    @Override
+    public String getFuelUnitAmount() {
+        return fuelUnitAmountFAEditText.getText().toString();
+    }
+
+    @Override
+    public String getFuelUnitPrice() {
+        return fuelUnitPriceFAEditText.getText().toString();
+    }
+
+    @Override
+    public void showMileageError(int resId) {
+        mileageFAEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showExpenseError(int resId) {
+        expenseFAEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showFuelUnitAmountError(int resId) {
+        fuelUnitAmountFAEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showFuelUnitPriceError(int resId) {
+        fuelUnitPriceFAEditText.setError(getString(resId));
     }
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {

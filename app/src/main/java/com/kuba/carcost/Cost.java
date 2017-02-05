@@ -40,6 +40,27 @@ public class Cost {
         this.tankMissed = tankMissed;
     }
 
+    @Override
+    public String toString() {
+        return "Cost{" +
+                "\nid=" + id +
+                ", \nvehicleId=" + vehicleId +
+                ", \nexpense=" + expense +
+                ", \ncostDate='" + costDate + '\'' +
+                ", \nmileage=" + mileage +
+                ", \ncategory=" + category +
+                ", \ndescription='" + description + '\'' +
+                ", \nfuelUnitAmount=" + fuelUnitAmount +
+                ", \nfuelUnitPrice=" + fuelUnitPrice +
+                ", \nfuelFull=" + fuelFull +
+                ", \nfuelTankNum=" + fuelTankNum +
+                ", \nplace='" + place + '\'' +
+                ", \ninsurer='" + insurer + '\'' +
+                ", \ninsurance=" + insurance +
+                ", \ntankMissed=" + tankMissed +
+                '}';
+    }
+
     public void setId(int id) {
         this.id = id;
     }

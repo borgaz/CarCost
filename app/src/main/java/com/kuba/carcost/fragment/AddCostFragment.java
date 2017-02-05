@@ -30,15 +30,16 @@ import java.util.GregorianCalendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddCostFragment extends Fragment {
+public class AddCostFragment extends Fragment implements CostView {
 
 
     private View view;
     private ChangeFragment mListener;
     private DatabaseHelper myDb;
+    private CostValidator validator;
 
     private EditText mileageCAEditText;
-    private static TextView dateCAEditText;
+    private static TextView dateCATextView;
     private EditText expenseCAEditText;
     private Spinner categoriesSpinner;
     private EditText descriptionEditText;
@@ -66,7 +67,7 @@ public class AddCostFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_cost, container, false);
         mileageCAEditText = (EditText) view.findViewById(R.id.mileageCAEditText);
-        dateCAEditText = (TextView) view.findViewById(R.id.dateCATextView);
+        dateCATextView = (TextView) view.findViewById(R.id.dateCATextView);
         expenseCAEditText = (EditText) view.findViewById(R.id.expenseCAEditText);
         categoriesSpinner = (Spinner) view.findViewById(R.id.categoriesSpinner);
         descriptionEditText = (EditText) view.findViewById(R.id.descriptionEditText);
@@ -75,6 +76,9 @@ public class AddCostFragment extends Fragment {
         insurerEditText = (EditText) view.findViewById(R.id.insurerEditText);
         insuranceTextView = (TextView) view.findViewById(R.id.insuranceTextView);
         insuranceSpinner = (Spinner) view.findViewById(R.id.insuranceSpinner);
+        addCostButton = (Button) view.findViewById(R.id.addCostButton);
+
+        validator = new CostValidator(this);
 
         setDate(new GregorianCalendar());
         myDb = new DatabaseHelper(view.getContext());
@@ -103,7 +107,7 @@ public class AddCostFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        dateCAEditText.setOnClickListener(new View.OnClickListener() {
+        dateCATextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(v);
@@ -117,28 +121,22 @@ public class AddCostFragment extends Fragment {
 
     public void onButtonPressed() {
         if (mListener != null) {
-            addCostButton = (Button) view.findViewById(R.id.addCostButton);
             addCostButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    saveCostData();
-                    if (mileageCAEditText.getText().toString() == "") {
-                        mileageCAEditText.setError("Pole wymagane.");
-                    } else if (mileage < 0) {
-                        mileageCAEditText.setError("Przebieg nie może być ujemny.");
-                    } else if (expenseCAEditText.getText().toString() == "") {
-                        expenseCAEditText.setError("Pole wymagane.");
-                    } else {
+                    if(validator.validate()) {
+                        saveCostData();
                         myDb = new DatabaseHelper(view.getContext());
-                        if(myDb.insertCostData(currentVehicle, expense,
-                                dateCAEditText.getText().toString(), mileage, category+1, description,
-                                -1, -1, -1, -1, place, insurer, insurance+1, -1))
+                        if (myDb.insertCostData(currentVehicle, expense,
+                                dateCATextView.getText().toString(), mileage, category + 1, description,
+                                -1, -1, -1, -1, place, insurer, insurance, -1)) {
                             Toast.makeText(getContext(), "Dodano koszt.", Toast.LENGTH_SHORT).show();
-                        else
+                            myDb.close();
+                            mListener.openHomeFragment();
+                        } else {
                             Toast.makeText(getContext(), "Nie dodano kosztu.", Toast.LENGTH_SHORT).show();
-
-                        myDb.close();
-                        mListener.openHomeFragment();
+                            myDb.close();
+                        }
                     }
                 }
             });
@@ -146,16 +144,8 @@ public class AddCostFragment extends Fragment {
     }
 
     private void saveCostData() {
-        try {
-            mileage = Integer.parseInt(mileageCAEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            mileage = -1;
-        }
-        try {
+        mileage = Integer.parseInt(mileageCAEditText.getText().toString());
         expense = Double.parseDouble(expenseCAEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            expense = 0;
-        }
         category = (int) categoriesSpinner.getSelectedItemId();
         description = descriptionEditText.getText().toString();
         place = placeEditText.getText().toString();
@@ -180,16 +170,36 @@ public class AddCostFragment extends Fragment {
         mListener = null;
     }
 
-    public void showDatePickerDialog(View view) {
-        DatePickerFragment fragment = new DatePickerFragment();
-        fragment.show(getFragmentManager(), "datePicker");
+    @Override
+    public String getMileage() {
+        return mileageCAEditText.getText().toString();
+    }
+
+    @Override
+    public String getExpense() {
+        return expenseCAEditText.getText().toString();
+    }
+
+    @Override
+    public void showMileageError(int resId) {
+        mileageCAEditText.setError(getString(resId));
+    }
+
+    @Override
+    public void showExpenseError(int resId) {
+        expenseCAEditText.setError(getString(resId));
     }
 
     private static void setDate(final GregorianCalendar gregorianCalendar) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateFormat.setCalendar(gregorianCalendar);
         String date = simpleDateFormat.format(gregorianCalendar.getTime());
-        dateCAEditText.setText(date);
+        dateCATextView.setText(date);
+    }
+
+    public void showDatePickerDialog(View view) {
+        DatePickerFragment fragment = new DatePickerFragment();
+        fragment.show(getFragmentManager(), "datePicker");
     }
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
